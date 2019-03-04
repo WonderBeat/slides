@@ -1,10 +1,218 @@
-\setbeamertemplate{navigation symbols}{}
-% My name is Denis
-% I work here
-% And live here
-% I work as this
-% So basically I do this for them
+\documentclass[aspectratio=169]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{sansmathfonts}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage[ttdefault=true]{AnonymousPro}
+% \renewcommand*\familydefault{\ttdefault}
+\renewcommand*\familydefault{\sfdefault}
+% \usepackage{cmbright}
 
+\usepackage{graphicx}
+
+\graphicspath{
+    {themes/gd/images/},
+    {images/}
+}
+\usepackage{themes/gd/beamerthemegd}
+\usepackage{themes/gd/beamerinnerthemegd}
+\usepackage{themes/gd/beamerouterthemegd}
+\usepackage{themes/gd/beamercolorthemegd}
+
+
+\title{Time In Distributed Systems\\ Pt.1}
+% \date[ISPN ’80]{27th International Symposium of Prime Numbers}
+\author[Euclid]{Euclid of Alexandria \texttt{euclid@alexandria.edu}}
+
+
+\begin{document}
+{   
+	\begin{titlePage} 
+		\titlepage        
+	\end{titlePage}
+	
+	\begin{gdblank}
+		\frametitle{Hello}
+		\centering\includegraphics[scale=2.3]{denis}
+		\\Denis Golovachev
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Hello}
+		\centering\includegraphics[scale=0.3]{gdlogo}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Hello}
+		\centering\includegraphics[scale=0.6]{spb}
+		\\Saint-Petersburg
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Hello}
+		\centering\includegraphics[scale=0.5]{arch} 
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Hello}
+		\centering\includegraphics[scale=0.8]{bigdata} 
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Hello}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.4]{galera}
+			\end{column}
+			\pause 
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.2]{gdlogo}
+			\end{column}
+		\end{columns}        
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Time}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=5]{adventuretime} 
+			\end{column}
+			\pause 
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.7]{timeputin} 
+			\end{column}
+		\end{columns}            
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Time}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.3]{thomas-train-clock} 
+			\end{column}
+			\pause 
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.5]{strarum} 
+			\end{column}
+		\end{columns}            
+	\end{gdblank}
+	\begin{gdblankclock}
+		\frametitle{Question}
+		\centering\Huge What is time?           
+	\end{gdblankclock} 
+	\begin{gdblank}
+		\frametitle{Time is ...}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.16]{halflife} 
+				\\Way of arrange the order of events 
+			\end{column}
+			\pause 
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.35]{einsteinspacetime} 
+				\\Another dimension
+			\end{column}
+		\end{columns} 
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Definition of time}
+		\LARGE Compact and robust definition of time has proved to be remarkably tricky and elusive.
+		\large
+		\vskip1cm
+		\begin{itemize}
+			\item What clocks measure (attr. to physicists Albert Einstein, Donald Ivey, and others)
+			      \pause
+			\item What prevents everything from happening at once (physicist John Wheeler and others)
+			\item A linear continuum of instants (philosopher Adolf Grünbaum)
+		\end{itemize}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Religion}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.5]{zurvanizm} 
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{block}{Wikipedia}
+					In Zurvanism, Zurvan was perceived as the god of infinite time and space and was aka ("one", "alone").
+				\end{block} 
+			\end{column}
+		\end{columns}     
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Time is ...}
+		\LARGE\centering Time is something we deal with every day, and something that everyone thinks they 
+		\bf understand
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Game Time}
+		\Huge\centering Let's play a game
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Round 1}    
+		\begin{columns}
+			\begin{column}{0.70\textwidth}
+				\LARGE There are always 24 hours in a day 
+				\pause     
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\large\centering Daylight saving time 
+				\vskip0.5cm
+				\includegraphics[scale=0.5]{daylightsaving}
+			\end{column}
+		\end{columns}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Round 2}    
+		\begin{columns}
+			\begin{column}{0.70\textwidth}
+				\LARGE A month always ends in the same year it started
+				\pause     
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\large\centering 
+				\begin{itemize}
+					\item Fiscal year/calendar
+					\item Chinese Year
+				\end{itemize}
+				\vskip0.5cm
+				\includegraphics[scale=0.5]{china}
+			\end{column}
+		\end{columns}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Round 3}    
+		\begin{columns}
+			\begin{column}{0.70\textwidth}
+				\LARGE Months have either 28, 29, 30 or 31 days
+				\pause     
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\large\centering  September 1752 had 19 days in British Empire
+				\vskip0.5cm
+				\includegraphics[scale=0.35]{british}
+			\end{column}
+		\end{columns}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Everyone do it wrong!?}
+		\pause
+		\includegraphics[width=\textwidth]{kernel-time-bug}
+	\end{gdblank}   
+	\begin{gdblank}
+		\frametitle{Everyone do it wrong!?}
+		\includegraphics[width=\textwidth]{jvm-time-bug}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Distributed environment}
+		\includegraphics[width=\textwidth]{network}
+	\end{gdblank}   
+	
+	\begin{gdblank}
+		\frametitle{}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+			\end{column}
+			\pause
+			\begin{column}{0.5\textwidth}
+			\end{column}
+		\end{columns} 
+	\end{gdblank} 
+\end{document}
+% There is no one simple definition of time. Time is something we deal with every day, and something that everyone thinks they understand.
 % What is the time?
 % Time is a way to order a set of events? % Half life 3
 % Einstein Space-Time
