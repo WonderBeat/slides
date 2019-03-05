@@ -70,11 +70,17 @@
 
 \setbeamertemplate{frametitle}{
   \usebeamercolor{normal text}
-  \vspace{0.3cm}
-	\begin{beamercolorbox}[sep=2pt]{frametitle}
+  % \vspace{0.2cm}
+  \begin{beamercolorbox}[sep=2pt,ht=0.8cm]{frametitle}
 		\insertframetitle
 	\end{beamercolorbox}
 }
+
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{itemize subitem}[square]
+\setbeamertemplate{itemize subsubitem}[ball]
+\setbeamercolor{frametitle}{fg=black}
+
 
 \defbeamertemplate*{title page}{gd}[1][]
 { 
