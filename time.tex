@@ -1,12 +1,17 @@
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=169, 15pt]{beamer}
+% \usepackage[orientation=landscape,size=custom,width=16,height=9,scale=0.5,debug]{beamerposter}
+
 \usepackage[utf8]{inputenc}
+\usepackage{fontspec}
 \usepackage{sansmathfonts}
 \usepackage{xcolor}
-\usepackage[T1]{fontenc}
-\usepackage[ttdefault=true]{AnonymousPro}
-% \renewcommand*\familydefault{\ttdefault}
-\renewcommand*\familydefault{\sfdefault}
-% \usepackage{cmbright}
+\usepackage{fontenc}
+\usepackage{unicode-math}
+\usepackage{libertine}
+
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+\setmainfont{Asana-Math}
 
 \usepackage{graphicx}
 
@@ -20,7 +25,7 @@
 \usepackage{themes/gd/beamercolorthemegd}
 
 
-\title{Time In Distributed Systems\\ Pt.1}
+\title{Time In Distributed Systems\\Pt.1}
 % \date[ISPN ’80]{27th International Symposium of Prime Numbers}
 \author[Euclid]{Euclid of Alexandria \texttt{euclid@alexandria.edu}}
 
@@ -30,7 +35,7 @@
 	\begin{titlePage} 
 		\titlepage        
 	\end{titlePage}
-	
+		
 	\begin{gdblank}
 		\frametitle{Hello}
 		\centering\includegraphics[scale=2.3]{denis}
@@ -189,7 +194,9 @@
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Everyone do it wrong!?}
-		\pause
+		\centering{\fontsize{140pt}{150pt}\selectfont\bf ?}
+	\end{gdblank}   
+	\begin{gdblank}
 		\includegraphics[width=\textwidth]{kernel-time-bug}
 	\end{gdblank}   
 	\begin{gdblank}
@@ -200,7 +207,85 @@
 		\frametitle{Distributed environment}
 		\includegraphics[width=\textwidth]{network}
 	\end{gdblank}   
-	
+	\begin{gdblank}
+		\frametitle{I am the Law and Order}
+		\centering
+		\includegraphics[scale=0.22]{order}
+		\\Needed to establish the order of events that have occurred in the system or when they will occur in the future
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Order in Chaos}
+		\LARGE
+		\begin{itemize}
+			\item Maintain consistency
+			\item Build reliable systems
+			      \pause
+			\item Mutual exclusions
+			\item Debug [Resumption of execution]
+		\end{itemize}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Distributed Systems}
+		\LARGE
+		Synchronization in distributed systems is hard
+		\begin{itemize}
+			\item No shared memory
+			\item No common clock
+		\end{itemize}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Common Clock}
+		\LARGE
+		We can reliably define
+		\pause
+		\begin{itemize}
+			\item simultaneous: all events that happen between clock ticks
+			\item before: an event that happens in a previous clock tick
+			\item after: an event that happens in a subsequent clock tick
+		\end{itemize}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Wall Clock}
+		\centering
+		\includegraphics[scale=0.20]{clock}
+		\\When kept under tension the quartz crystal oscillates at a well-defined frequency
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Clock Drift}
+		\begin{columns}
+			\begin{column}{0.6\textwidth}
+				We can't have perfect clocks
+				\includegraphics[scale=0.5]{clockdrift}
+			\end{column}
+			\begin{column}{0.4\textwidth}
+				Ordinary quartz clocks drift by about 1 sec in 11-12 days
+			\end{column}
+		\end{columns}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Clock Skew}
+		\includegraphics[scale=0.1]{skew}
+		\\Skew: the difference between the times on two clocks (at any instant)
+	\end{gdblank}
+	% I'm running NTP. I'm good. 
+	\begin{gdblank}
+		\frametitle{Causality}
+		\includegraphics[scale=0.3]{causality}
+		\centering\\Causal relations\\An example of a causal relation and its representation in a graph. 
+		\tiny \\Credits: C. Giarmatzi
+	\end{gdblank}   	
+	\begin{gdblank}
+		\frametitle{The WHY of things}
+		\begin{itemize}
+			\item The concept of causality between events is fundamental to the design and analysis of parallel and distributed computing and operating systems
+			\item Usually causality is tracked using physical time
+			      \pause 
+			      \item\bf\LARGE In distributed systems, it is not possible to have a global physical time
+		\end{itemize}		
+	\end{gdblank}   
+	\begin{gdblank}
+	\end{gdblank}
+		
 	\begin{gdblank}
 		\frametitle{}
 		\begin{columns}
@@ -213,6 +298,7 @@
 	\end{gdblank} 
 \end{document}
 % There is no one simple definition of time. Time is something we deal with every day, and something that everyone thinks they understand.
+% most people take for granted every day.
 % What is the time?
 % Time is a way to order a set of events? % Half life 3
 % Einstein Space-Time
@@ -254,6 +340,14 @@
 % We can use this capability to build a truly distributed dataflow graph with dependencies without having a centralized coordinating process.
 % Cassandra
 
+
+% The concept of causality between events is fundamental to the design and
+% analysis of parallel and distributed computing and operating systems.
+% Usually causality is tracked using physical time.
+% In distributed systems, it is not possible to have a global physical time.
+% As asynchronous distributed computations make progress in spurts, the
+% logical time is sufficient to capture the fundamental monotonicity property
+% associated with causality in distributed systems
 
 % http://books.cs.luc.edu/distributedsystems/clocks.html#time-and-computation
 % https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6900441
