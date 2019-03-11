@@ -37,7 +37,7 @@
     \usebackgroundtemplate{
         \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-blank}\hfil}\vfil}
     }  
-  \begin{frame}{#1}
+  \begin{frame}[fragile]
   \BODY
   \end{frame}
       }
@@ -77,9 +77,25 @@
 }
 
 \setbeamertemplate{itemize items}[circle]
+\setbeamercolor{itemize item}{fg=RedOrange}
+
 \setbeamertemplate{itemize subitem}[square]
 \setbeamertemplate{itemize subsubitem}[ball]
 \setbeamercolor{frametitle}{fg=black}
+
+\lstset{
+numbers = left,
+framexleftmargin=10mm,
+frame=none,
+backgroundcolor=\color[RGB]{245,245,244}, % <--- use RGB (not rgb) if you use 8-bit color specifications
+keywordstyle=\bf\color{blue},
+identifierstyle=\bf,
+numberstyle=\color[RGB]{0,192,192},
+commentstyle=\it\color[RGB]{0,96,96},
+stringstyle=\rmfamily\slshape\color[RGB]{128,0,0}, % <---- you had a `1' instead of an `l' in \slshape
+% <--- do not leave blank lines in the argument of \lstset
+showstringspaces=true
+}
 
 
 \defbeamertemplate*{title page}{gd}[1][]
