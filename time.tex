@@ -1,5 +1,5 @@
-\documentclass[aspectratio=169, 15pt]{beamer}
-% \usepackage[orientation=landscape,size=custom,width=16,height=9,scale=0.5,debug]{beamerposter}
+\documentclass[aspectratio=169, 15pt,usenames,dvipsnames]{beamer}
+
 
 \usepackage[utf8]{inputenc}
 \usepackage{fontspec}
@@ -8,6 +8,11 @@
 \usepackage{fontenc}
 \usepackage{unicode-math}
 \usepackage{libertine}
+\usepackage{listings}
+\usepackage{cprotect}
+
+\usepackage[makeroom]{cancel}
+
 
 \usefonttheme{serif}
 \usefonttheme{professionalfonts}
@@ -25,6 +30,15 @@
 \usepackage{themes/gd/beamercolorthemegd}
 
 
+
+\graphicspath{
+    {themes/gd/images/},
+    {images/}
+}
+
+\setlength{\parskip}{1em}
+
+
 \title{Time In Distributed Systems\\Pt.1}
 % \date[ISPN ’80]{27th International Symposium of Prime Numbers}
 \author[Euclid]{Euclid of Alexandria \texttt{euclid@alexandria.edu}}
@@ -39,30 +53,34 @@
 	\begin{gdblank}
 		\frametitle{Hello}
 		\centering\includegraphics[scale=2.3]{denis}
-		\\Denis Golovachev
-	\end{gdblank}
+		\\Denis Golovachev		
+	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Hello}
 		\centering\includegraphics[scale=0.3]{gdlogo}
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Hello}
+		\frametitle{SPB}
 		\centering\includegraphics[scale=0.6]{spb}
 		\\Saint-Petersburg
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Hello}
-		\centering\includegraphics[scale=0.5]{arch} 
-	\end{gdblank}
-	\begin{gdblank}
-		\frametitle{Hello}
+		\frametitle{Big Data}
 		\centering\includegraphics[scale=0.8]{bigdata} 
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Hello}
+		\frametitle{Data Streaming}
+		\centering\includegraphics[width=0.5\textwidth]{streaming} 
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Architect}
+		\centering\includegraphics[scale=0.5]{arch} 
+	\end{gdblank}
+	\begin{gdblank}
+		% \frametitle{Hello}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[scale=0.4]{galera}
+				\centering\includegraphics[scale=0.5]{bigdata}
 			\end{column}
 			\pause 
 			\begin{column}{0.5\textwidth}
@@ -71,14 +89,14 @@
 		\end{columns}        
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Time}
+		\frametitle{Time} 
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
 				\centering\includegraphics[scale=5]{adventuretime} 
 			\end{column}
 			\pause 
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[scale=0.7]{timeputin} 
+				\centering\includegraphics[scale=0.3]{time2} 
 			\end{column}
 		\end{columns}            
 	\end{gdblank}
@@ -94,10 +112,10 @@
 			\end{column}
 		\end{columns}            
 	\end{gdblank}
-	\begin{gdblankclock}
+	\begin{gdblank}
 		\frametitle{Question}
 		\centering\Huge What is time?           
-	\end{gdblankclock} 
+	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Time is ...}
 		\begin{columns}
@@ -150,6 +168,7 @@
 		\frametitle{Round 1}    
 		\begin{columns}
 			\begin{column}{0.70\textwidth}
+				\centering
 				\LARGE There are always 24 hours in a day 
 				\pause     
 			\end{column}
@@ -160,10 +179,26 @@
 			\end{column}
 		\end{columns}
 	\end{gdblank} 
+	
+	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.70\textwidth}
+				\centering
+				\LARGE There are 60 seconds in a minute 
+				\pause     
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\large\centering Leap Second
+				\vskip0.5cm
+				\includegraphics[width=0.9\textwidth]{leapsecond}
+			\end{column}
+		\end{columns}
+	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Round 2}    
 		\begin{columns}
 			\begin{column}{0.70\textwidth}
+				\centering
 				\LARGE A month always ends in the same year it started
 				\pause     
 			\end{column}
@@ -182,7 +217,8 @@
 		\frametitle{Round 3}    
 		\begin{columns}
 			\begin{column}{0.70\textwidth}
-				\LARGE Months have either 28, 29, 30 or 31 days
+				\centering
+				\LARGE Month could have less than 20 days
 				\pause     
 			\end{column}
 			\begin{column}{0.3\textwidth}
@@ -193,19 +229,49 @@
 		\end{columns}
 	\end{gdblank} 
 	\begin{gdblank}
-		\frametitle{Everyone do it wrong!?}
+		\frametitle{Everyone's do it wrong!?}
 		\centering{\fontsize{140pt}{150pt}\selectfont\bf ?}
 	\end{gdblank}   
 	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[width=\textwidth]{server-down}				
+			\end{column}
+			\pause
+			\begin{column}{0.5\textwidth}
+				\includegraphics[width=\textwidth]{cpu}
+			\end{column}
+		\end{columns}				
+	\end{gdblank}  
+	\begin{gdblank}		
 		\includegraphics[width=\textwidth]{kernel-time-bug}
+	\end{gdblank}  
+	\begin{gdblank}		
+		\frametitle{Java Code}
+		\includegraphics[width=\textwidth]{sleep}
 	\end{gdblank}   
 	\begin{gdblank}
-		\frametitle{Everyone do it wrong!?}
 		\includegraphics[width=\textwidth]{jvm-time-bug}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Distributed environment}
-		\includegraphics[width=\textwidth]{network}
+		\includegraphics[width=\textwidth]{networkb}
+	\end{gdblank}   
+	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.6\textwidth}
+				\includegraphics[width=\textwidth]{cassandrawrite}
+			\end{column}
+			\begin{column}{0.4\textwidth}
+				\includegraphics[width=\textwidth]{cassandra}
+				\centering
+				\begin{itemize}
+					\item Peer to Peer Database
+					\item Masterless Architecture
+				\end{itemize}
+				\tiny its difficult to reason about events in this system
+			\end{column}
+		\end{columns}
 	\end{gdblank}   
 	\begin{gdblank}
 		\frametitle{I am the Law and Order}
@@ -225,29 +291,35 @@
 		\end{itemize}
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Distributed Systems}
-		\LARGE
-		Synchronization in distributed systems is hard
-		\begin{itemize}
-			\item No shared memory
-			\item No common clock
-		\end{itemize}
-	\end{gdblank}
-	\begin{gdblank}
 		\frametitle{Common Clock}
 		\LARGE
 		We can reliably define
 		\pause
 		\begin{itemize}
 			\item simultaneous: all events that happen between clock ticks
+			      \pause
 			\item before: an event that happens in a previous clock tick
+			      \pause
 			\item after: an event that happens in a subsequent clock tick
 		\end{itemize}
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Wall Clock}
+		\frametitle{Distributed Systems}
+		\LARGE
+		Synchronization in distributed systems is \bf hard
+		\begin{itemize}
+			\item No shared memory
+			\item No common clock
+		\end{itemize}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Wall Clock}		
 		\centering
+		\LARGE	
+		Let's use 'Wall Clocks'!?
+		\par
 		\includegraphics[scale=0.20]{clock}
+		\small
 		\\When kept under tension the quartz crystal oscillates at a well-defined frequency
 	\end{gdblank}
 	\begin{gdblank}
@@ -264,28 +336,324 @@
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Clock Skew}
-		\includegraphics[scale=0.1]{skew}
+		\centering
+		\includegraphics[scale=0.15]{skew}
 		\\Skew: the difference between the times on two clocks (at any instant)
 	\end{gdblank}
-	% I'm running NTP. I'm good. 
 	\begin{gdblank}
-		\frametitle{Causality}
+		\frametitle{I'm running NTP. I'm good}
+		\centering
+		\includegraphics[scale=0.15]{ntp}
+		\\The challenge with this approach is that there is a delay in the transmission from the time server to the client receiving the time update
+		\\This delay is not constant for all requests. Some request may be faster and others slower
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{I'm running NTP. I'm good}
+		\centering													   
+		\LARGE
+		\alt<2>{1 / 600000 = 0.0000016 ... microsecond?}{600000 events per second} 
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{I'm running NTP. I'm good}
+		\includegraphics[scale=0.25]{accuracy}
+		\\\tiny
+		* Choosing the correct Time Synchronization Protocol and incorporating the 1756-TIME module into your Application \\ By: Josh Matson
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Boom!}
+		\centering
+		\LARGE It's difficult! \par
+		\includegraphics[scale=0.3]{suicide}
+		\large \\
+		Because we have correction of time does not mean that all machines agree on time, it just means they are much closer to each other on average
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Leslie Lamport}
+		\centering
+		\includegraphics[height=0.6\textheight]{lamport} \\
+		\large
+		Lamport, L. (1978). "Time, clocks, and the ordering of events in a distributed system"
+	\end{gdblank}
+	\begin{gdblank}
+		\centering
+		\begin{itemize}
+			\item The important contribution of Lamport is that in a distributed system, clocks need not be synchronized absolutely
+			\item It is not important that all processes agree on what the actual time is, but that they agree on the order in which events occur
+			\item Happenes Before
+		\end{itemize}		
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Partial Ordering}
+		The relation '\rightarrow' on the set of events of a system is a smallest relation satisfying three conditions
+		\begin{itemize}
+			\item If $a$ and $b$ are events in the same process, and $a$ comes before $b$, then $a$ \rightarrow $b$ 
+			\item If $a$ is the sending of a message by one process and $b$ is the receipt of the same message by another process, then $a\rightarrow b$
+			\item Transitive. If $a\rightarrow b$ and $b\rightarrow c$ then $a\rightarrow c$. Two distinct events $a$ and $b$ are said to be concurrent if $a\cancel{\rightarrow} b$ and $b\cancel{\rightarrow} a$
+		\end{itemize}				
+		\par
+		If $a\rightarrow b$ happens between two process, and events $x$ and $y$ occur on another set of processes and these two sets of processes don’t exchange messages then:\\
+		we cannot say whether $x\rightarrow y$ or $y\rightarrow x$ from the perspective of the first set of processes
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Example}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[height=0.8\textheight]{lamport_clocks_dia}			
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}
+					\item When a message is transmitted from $P1 to P2$, $P1$ will encode the send time into the message
+					      \pause
+					\item When $P2$ receives the message, it will record the time of receipt
+					      \pause
+					\item If the time at $P2$ is already greater than the send time, then no action is required for $P2$
+					      \pause
+					\item If $P2$ discovers that the time of receipt is before the send time, $P2$ will update its software clock to be one greater than the send time
+					      \pause
+					\item “happens-before” relationship is preserved with this actions
+				\end{itemize}
+			\end{column}	
+		\end{columns}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Lamport Clocks Limitations}
+		\centering
+		\large		
+		With Lamport’s clocks nothing can be said about the actual time of a and b.
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Causality} 
 		\includegraphics[scale=0.3]{causality}
 		\centering\\Causal relations\\An example of a causal relation and its representation in a graph. 
 		\tiny \\Credits: C. Giarmatzi
-	\end{gdblank}   	
-	\begin{gdblank}
-		\frametitle{The WHY of things}
-		\begin{itemize}
-			\item The concept of causality between events is fundamental to the design and analysis of parallel and distributed computing and operating systems
-			\item Usually causality is tracked using physical time
-			      \pause 
-			      \item\bf\LARGE In distributed systems, it is not possible to have a global physical time
-		\end{itemize}		
 	\end{gdblank}   
 	\begin{gdblank}
+		\frametitle{Who did when?}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[height=0.8\textheight]{lamport_clocks_dia}			
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}
+					\item $m1 \rightarrow m3$?
+					\item $m2 \rightarrow m3$? 
+				\end{itemize}
+			\end{column}	
+		\end{columns}
 	\end{gdblank}
-		
+	\begin{gdblank}
+		\frametitle{Vector Clocks}
+		\centering
+		\LARGE
+		Vector Clocks
+		\par\large
+		by Colin Fidge and Friedemann Mattern in 1988
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Vector Clocks Rules}
+		\centering
+		\large
+		\begin{itemize}
+			\item A vector clock $VC(a)$ is assigned to an event $a$
+			\item If $VC(a)<VC(b)$ for events $a$ and $b$, then event $a$ is known to causally precede $b$
+		\end{itemize}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Robbery}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[width=0.8\textwidth]{robbery}			
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				Alice, Ben, Cathy, and Dave want to rob a bank
+				\begin{itemize}
+					\item They could send P2P messages
+					\item No leader
+				\end{itemize}
+			\end{column}	
+		\end{columns}
+	\end{gdblank}	
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector1}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			\begin{lstlisting}[language=Python]
+date = Wednesday
+vclock = Alice:1
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector2}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Ben suggests Tuesday
+			\begin{lstlisting}[language=Python]
+date = Tuesday
+vclock = Alice:1, Ben:1
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector2}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Dave replies, confirming Tuesday
+			\begin{lstlisting}[language=Python]
+date = Tuesday
+vclock = Alice:1, Ben:1, Dave:1
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector3}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Now Cathy gets into the act, suggesting Thursday
+			\begin{lstlisting}[language=Python]
+date = Thursday
+vclock = Alice:1, Cathy:1
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector4}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Dave has two conflicting objects
+			\begin{lstlisting}[language=Python]
+date = Tuesday
+vclock = Alice:1, Ben:1, Dave:1
+			\end{lstlisting}
+			and
+			\begin{lstlisting}[language=Python]
+date = Thursday
+vclock = Alice:1, Cathy:1
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector5}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Dave has two conflicting objects
+			\begin{lstlisting}[language=Python]
+date = Thursday
+vclock = Alice:1, Ben:1, Cathy:1, Dave:2
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector6}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			when Alice asks Ben and Cathy for the latest decision, the replies she receives are, from Ben
+			\begin{lstlisting}[language=Python]
+date = Tuesday
+vclock = Alice:1, Ben:1, Dave:1
+			\end{lstlisting}
+			From Cathy
+			\begin{lstlisting}[language=Python]
+date = Thursday
+vclock = Alice:1, Ben:1, Cathy:1, Dave:2
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector7}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			From this, she can tell that Dave intended his correspondence with Cathy to override the decision he made with Ben. All Alice has to do is show Ben the vector clock from Cathy’s message, and Ben will know that he has been overruled.
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=0.8\textwidth]{vector8}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Done. Everybody's in sync
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\begin{gdblank}		
+		\centering
+		\includegraphics[height=0.8\textheight]{mafia}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{So, What!?}
+		\centering
+		\large 
+		So... What Did We Get Out of All of This?
+	\end{gdblank}	
+	% \begin{gdblank}
+	% 	\frametitle{The WHY of things}
+	% 	\begin{itemize}
+	% 		\item The concept of causality between events is fundamental to the design and analysis of parallel and distributed computing and operating systems
+	% 		\item Usually causality is tracked using physical time
+	% 		      \pause 
+	% 		      \item\bf\LARGE In distributed systems, it is not possible to have a global physical time
+	% 	\end{itemize}		
+	% \end{gdblank}   
+	\begin{gdblank}
+		\frametitle{Review}
+		\begin{itemize}
+			\large
+			\item Physical Clocks - hard to keep synchronized
+			\item Logical clocks - can provide some notion of relative events occurrence
+			\item Lamport's logical time
+			      \begin{itemize}
+			      	\item happened before defines causal relation
+			      	\item this clocks don't capture causality
+			      	\item total ordering relation
+			      \end{itemize}
+			\item Vector Clocks
+			      \begin{itemize}
+			      	\item captures causality
+			      	\item have a component for each process in the system
+			      	\item slow and grow
+			      \end{itemize}
+		\end{itemize}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{So many things to tell you}
+		\begin{itemize}
+			\item GPS Clocks
+			\item Atomic Clocks in Google Spanner Database
+			\item UTC, TAI, TCG and TCB coordinate time standards
+			\item Why do clocks run clockwise?
+			\item Why there were no December 30 in Samoa?
+		\end{itemize}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Thank you!}
+		Hope your software will never run on a space ship that is orbiting a black hole
+	\end{gdblank} 
+			
 	\begin{gdblank}
 		\frametitle{}
 		\begin{columns}
@@ -297,6 +665,13 @@
 		\end{columns} 
 	\end{gdblank} 
 \end{document}
+% IT's hard but we could deal with it
+% Java code
+
+
+% https://literature.rockwellautomation.com/idc/groups/literature/documents/wp/enet-wp030_-en-e.pdf
+% gps clocks
+
 % There is no one simple definition of time. Time is something we deal with every day, and something that everyone thinks they understand.
 % most people take for granted every day.
 % What is the time?
