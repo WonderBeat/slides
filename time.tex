@@ -7,7 +7,6 @@
 \usepackage{xcolor}
 \usepackage{fontenc}
 \usepackage{unicode-math}
-\usepackage{libertine}
 \usepackage{listings}
 \usepackage{cprotect}
 
@@ -16,8 +15,9 @@
 
 \usefonttheme{serif}
 \usefonttheme{professionalfonts}
-\setmainfont{Asana-Math}
 
+\usepackage[sfdefault,scaled=1.1]{FiraSans}
+\usepackage{sourcecodepro}
 \usepackage{graphicx}
 
 \graphicspath{
@@ -37,7 +37,8 @@
 }
 
 \setlength{\parskip}{1em}
-
+\setbeamertemplate{footline}{%
+   \raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
 
 \title{Time In Distributed Systems\\Pt.1}
 % \date[ISPN ’80]{27th International Symposium of Prime Numbers}
@@ -56,7 +57,6 @@
 		\\Denis Golovachev		
 	\end{gdblank} 
 	\begin{gdblank}
-		\frametitle{Hello}
 		\centering\includegraphics[scale=0.3]{gdlogo}
 	\end{gdblank}
 	\begin{gdblank}
@@ -65,16 +65,31 @@
 		\\Saint-Petersburg
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Big Data}
 		\centering\includegraphics[scale=0.8]{bigdata} 
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Data Streaming}
-		\centering\includegraphics[width=0.5\textwidth]{streaming} 
+		\centering\includegraphics[scale=0.25]{garchitect} 
+		\par\LARGE
+		Software Architect
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Architect}
-		\centering\includegraphics[scale=0.5]{arch} 
+		\frametitle{Data Streaming}
+		\centering\includegraphics[width=0.6\textwidth]{streaming} 
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\includegraphics[width=0.7\textwidth]{tech-part} 
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\includegraphics[width=0.7\textwidth]{tech-all} 
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Big Data School}
+		\centering\includegraphics[scale=0.6]{school}
+		\par\LARGE
+		Professor 
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\includegraphics[scale=0.8]{love-job} 
 	\end{gdblank}
 	\begin{gdblank}
 		% \frametitle{Hello}
@@ -235,7 +250,8 @@
 	\begin{gdblank}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-				\includegraphics[width=\textwidth]{server-down}				
+				\includegraphics[width=\textwidth]{aliens}				
+
 			\end{column}
 			\pause
 			\begin{column}{0.5\textwidth}
@@ -342,9 +358,9 @@
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{I'm running NTP. I'm good}
-		\centering
-		\includegraphics[scale=0.15]{ntp}
-		\\The challenge with this approach is that there is a delay in the transmission from the time server to the client receiving the time update
+		\centering\includegraphics[scale=0.15]{ntp}
+		\par
+		The challenge with this approach is that there is a delay in the transmission from the time server to the client receiving the time update
 		\\This delay is not constant for all requests. Some request may be faster and others slower
 	\end{gdblank}
 	\begin{gdblank}
@@ -355,7 +371,8 @@
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{I'm running NTP. I'm good}
-		\includegraphics[scale=0.25]{accuracy}
+		\centering
+		\includegraphics[scale=0.20]{accuracy}
 		\\\tiny
 		* Choosing the correct Time Synchronization Protocol and incorporating the 1756-TIME module into your Application \\ By: Josh Matson
 	\end{gdblank}
@@ -402,7 +419,7 @@
 			\end{column}
 			\begin{column}{0.5\textwidth}
 				\begin{itemize}
-					\item When a message is transmitted from $P1 to P2$, $P1$ will encode the send time into the message
+					\item When a message is transmitted from $P1 \rightarrow P2$, $P1$ will encode the send time into the message
 					      \pause
 					\item When $P2$ receives the message, it will record the time of receipt
 					      \pause
@@ -461,6 +478,7 @@
 	\begin{gdblank}
 		\frametitle{Robbery}
 		\begin{columns}
+
 			\begin{column}{0.5\textwidth}
 				\includegraphics[width=0.8\textwidth]{robbery}			
 			\end{column}
@@ -476,7 +494,7 @@
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{vector1}			
+			\includegraphics[width=0.9\textwidth]{vector1}			
 		\end{column}
 		\begin{column}{0.5\textwidth}				
 			\begin{lstlisting}[language=Python]
@@ -489,7 +507,7 @@ vclock = Alice:1
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{vector2}			
+			\includegraphics[width=0.9\textwidth]{vector2}			
 		\end{column}
 		\begin{column}{0.5\textwidth}				
 			Ben suggests Tuesday
@@ -503,7 +521,7 @@ vclock = Alice:1, Ben:1
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{vector2}			
+			\includegraphics[width=0.9\textwidth]{vector3}			
 		\end{column}
 		\begin{column}{0.5\textwidth}				
 			Dave replies, confirming Tuesday
@@ -517,7 +535,7 @@ vclock = Alice:1, Ben:1, Dave:1
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{vector3}			
+			\includegraphics[width=0.9\textwidth]{vector4}			
 		\end{column}
 		\begin{column}{0.5\textwidth}				
 			Now Cathy gets into the act, suggesting Thursday
@@ -531,7 +549,7 @@ vclock = Alice:1, Cathy:1
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{vector4}			
+			\includegraphics[width=0.9\textwidth]{vector5}			
 		\end{column}
 		\begin{column}{0.5\textwidth}				
 			Dave has two conflicting objects
@@ -550,7 +568,7 @@ vclock = Alice:1, Cathy:1
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{vector5}			
+			\includegraphics[width=0.9\textwidth]{vector6}			
 		\end{column}
 		\begin{column}{0.5\textwidth}				
 			Dave has two conflicting objects
@@ -564,7 +582,7 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{vector6}			
+			\includegraphics[width=0.9\textwidth]{vector7}			
 		\end{column}
 		\begin{column}{0.5\textwidth}				
 			when Alice asks Ben and Cathy for the latest decision, the replies she receives are, from Ben
@@ -583,7 +601,7 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
-			\includegraphics[width=0.8\textwidth]{vector7}			
+			\includegraphics[width=0.8\textwidth]{vector8}			
 		\end{column}
 		\begin{column}{0.5\textwidth}				
 			From this, she can tell that Dave intended his correspondence with Cathy to override the decision he made with Ben. All Alice has to do is show Ben the vector clock from Cathy’s message, and Ben will know that he has been overruled.
@@ -651,6 +669,7 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Thank you!}
+		\centering
 		Hope your software will never run on a space ship that is orbiting a black hole
 	\end{gdblank} 
 			

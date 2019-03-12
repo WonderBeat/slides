@@ -12,7 +12,7 @@
 \definecolor{BlueGreen}{cmyk}{0.85,0,0.33,0}
 \definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
 \definecolor{Magenta}{cmyk}{0,1,0,0}
-\definecolor{princetonorange}{rgb}{1.0, 0.56, 0.0}
+\definecolor{princetonorange}{rgb}{1.0, 0.64, 0.43}
 
 
 \setbeamercolor{white text}{fg=white,bg=white}
@@ -87,18 +87,19 @@
 
 \lstset{
 % numbers = left,
-basicstyle=\small,
+basicstyle=\small\ttfamily,
 framexleftmargin=1mm,
-frame=none,
+framextopmargin=50pt,
+frame=bottomline,
 backgroundcolor=\color{princetonorange},
 breaklines=true,
-keywordstyle=\bf\color{blue},
-identifierstyle=\bf,
+% keywordstyle=\bf\color{blue},
+% identifierstyle=\bf,
 numberstyle=\color[RGB]{0,192,192},
 commentstyle=\it\color[RGB]{0,96,96},
-stringstyle=\rmfamily\slshape\color[RGB]{128,0,0}, % <---- you had a `1' instead of an `l' in \slshape
+% stringstyle=\rmfamily\slshape\color[RGB]{128,0,0}, % <---- you had a `1' instead of an `l' in \slshape
 % <--- do not leave blank lines in the argument of \lstset
-showstringspaces=true
+% showstringspaces=true
 }
 
 
@@ -112,7 +113,7 @@ showstringspaces=true
       \usebeamerfont{title}\inserttitle\par%
     % \end{flushright}
     \end{beamercolorbox}%    
-    \vskip0.75cm%
+    \vskip0.95cm%
     % \begin{beamercolorbox}[wd=12cm,leftskip=3cm,#1]{author}
     %   \usebeamerfont{author}\insertauthor%
     % \end{beamercolorbox}
