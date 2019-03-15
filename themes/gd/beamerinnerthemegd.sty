@@ -1,6 +1,7 @@
 
 \RequirePackage{environ}
 \RequirePackage{xcolor}
+\RequirePackage{FiraSans}
 
 \definecolor{olive}{rgb}{0.3, 0.4, .1}
 \definecolor{fore}{RGB}{249,242,215}
@@ -19,6 +20,10 @@
 \setbeamercolor{normal text}{fg=black, bg=black}
 \setbeamercolor{block title}{use=structure,fg=white,bg=purple!75!black}
 \setbeamercolor{block body}{use=structure,fg=black,bg=white!20!white}
+
+\setbeamerfont{title}{series=\bfseries}
+\setbeamerfont{frametitle}{series=\fontspec{Fira Sans}}
+
 
 \mode<presentation>
 
@@ -80,6 +85,8 @@
 
 \setbeamertemplate{itemize items}[circle]
 \setbeamercolor{itemize item}{fg=RedOrange}
+\setbeamercolor{itemize subitem}{fg=RedOrange}
+\setbeamercolor{itemize subsubitem}{fg=RedOrange}
 
 \setbeamertemplate{itemize subitem}[square]
 \setbeamertemplate{itemize subsubitem}[ball]
@@ -105,10 +112,10 @@ commentstyle=\it\color[RGB]{0,96,96},
 
 \defbeamertemplate*{title page}{gd}[1][]
 { 
-   \vskip3cm%      
+   \vskip2.5cm%      
    \usebeamercolor{white text}
     \hskip1.5cm
-    \begin{beamercolorbox}[wd=9cm,sep=1pt,right,#1]{title page header}
+    \begin{beamercolorbox}[wd=10cm,sep=1pt,right,#1]{title page header}
       % \begin{flushright}
       \usebeamerfont{title}\inserttitle\par%
     % \end{flushright}
