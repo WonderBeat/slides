@@ -50,6 +50,18 @@
       }
 }
 
+\NewEnviron{gdsw}[1][]{
+      {     
+    \usebeamercolor{normal text}
+    \usebackgroundtemplate{
+        \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-sw}\hfil}\vfil}
+    }  
+  \begin{frame}{#1}
+  \BODY
+  \end{frame}
+      }
+}
+
 \NewEnviron{gdblankclock}[1][]{
       {     
     \usebeamercolor{normal text}
