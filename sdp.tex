@@ -40,10 +40,7 @@
 \setbeamertemplate{footline}{%
    \raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
 
-\title{The Streaming Data Platform\\\small as a heavy duty\\enterprise data marketplace\\\tiny when to use it in your project\\the case of MMA}
-% \date[ISPN ’80]{27th International Symposium of Prime Numbers}
-\author[Euclid]{Euclid of Alexandria \texttt{euclid@alexandria.edu}}
-
+\title{The Streaming Data Platform\\\small as a heavy duty enterprise data marketplace\\\tiny when to use it in your project. The case of MMA}
 
 \begin{document}  
 \begin{titlePage} 
@@ -56,11 +53,6 @@
 	\\Denis Golovachev		
 \end{gdsw} 
 \begin{gdsw}
-	\frametitle{Hello}
-	\centering\includegraphics[height=0.6\textheight]{pikachu}
-	\\Roman Zakharov [I don't have his photo, but this is quite close]
-\end{gdsw} 	
-\begin{gdsw}
 	\centering\includegraphics[scale=0.3]{gdlogo}
 \end{gdsw}
 \begin{gdsw}
@@ -69,22 +61,12 @@
 	\\Saint-Petersburg
 \end{gdsw}
 \begin{gdsw}
-	\frametitle{KRK}
-	\centering\includegraphics[height=0.7\textheight]{krakov}
-	\\Krakov
-\end{gdsw}
-\begin{gdsw}
 	\centering\includegraphics[height=0.9\textheight]{bigdata} 
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.7\textheight]{garchitect} 
 	\par\LARGE
 	Software Architect
-\end{gdsw}
-\begin{gdsw}
-	\centering\includegraphics[height=0.7\textheight]{analytics} 
-	\par\LARGE
-	Business Analytic
 \end{gdsw}
 \begin{gdsw}
 	\frametitle{Data Streaming}
@@ -114,17 +96,19 @@
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{hdd-cost-2} 
-	\par
-	For the past 35+ years or so, hard drives prices have dropped, from around \$500,000 per gigabyte in 1981 to less than \$0.02 per gigabyte today
+	\par	
+	For the past 35+ years or so, hard drives prices are constantly dropping
+	\note{from around \$500,000 per gigabyte in 1981 to less than \$0.02 per gigabyte today}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{hdd-cost}\\
 	\centering\tiny [https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/]
 	\par\normalsize\centering\begin{itemize}
-	\item 2010 year - countries could afford to store everything. i.e. USA PRIZM
+	\item 2010 year - countries could store everything. i.e. USA PRIZM
 	\item 2015 - big companies could afford to store everything. i.e. Google
 	\item 2019 - everyone!?
 	\end{itemize}
+	\note{So it became possible somewhere around 2010 for contries to store every data they could collect/intercept/sneak }
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{hdd-cost}\\
@@ -137,14 +121,19 @@
 \begin{gdsw}
 	\centering{\fontsize{30}{35pt}\selectfont\bf Information = Money}
 	\par\centering\Large
-	% \centering\includegraphics[width=0.7\textwidth]{hdd-cost} 
 	But could we earn {\bf more} money with all of this information we collecting.\\        
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{bigdata}
 	\par
 	That's what basically we do in our BigData field
-\end{gdsw}	
+\end{gdsw}
+\begin{gdsw}
+	\centering\includegraphics[height=0.6\textheight]{dataoil}
+	\par
+	The world’s most valuable resource is no longer oil, but data
+	\note{So, nowday The world’s most valuable resource is no longer oil, but data. }
+\end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[width=0.7\textwidth]{knight-capital}
 	\par\LARGE
@@ -174,15 +163,17 @@
 \begin{gdsw}
 	\centering\includegraphics[width=0.7\textwidth]{trading} 
 	\par
-	Humans still watch the systems, but {\bf the computers move far too quickly for us to react to everything they do} - and at Knight Capital, the computer glitch meant the company was making trades it didn't intend to make. That's how to lose almost half a billion dollars in a little over half an hour.
+	{\bf Humans} still {\bf watch the systems}, but {\bf the computers move far too quickly for us to react to everything they do}.\\
+	\note{ Due to computer glitch the company was making trades it didn't intend to make. That's how to lose almost half a billion dollars in a little over half an hour. }
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[width=0.7\textwidth]{robbery2} 
 	\par
 	\LARGE My previous project
+	\note{Another example could be}
 \end{gdsw}
 \begin{gdsw}
-	\centering\includegraphics[width=0.7\textwidth]{magic} 
+	\centering\includegraphics[width=0.7\textwidth]{fraud-sketch} 
 	\par
 	\LARGE Fraud Detection System
 \end{gdsw}
@@ -209,6 +200,9 @@
 \end{gdsw}	
 \begin{gdsw}
 	\centering{\fontsize{30}{35pt}\selectfont\bf Reaction Time!}
+\end{gdsw}
+\begin{gdsw}
+	\centering\includegraphics[height=0.7\textheight]{data-aging} 
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.7\textheight]{streaming-details} 
@@ -239,21 +233,108 @@
 	\end{columns}
 \end{gdsw}
 \begin{gdsw}
-	\centering\includegraphics[height=\textheight]{sdp}         
+	\centering\includegraphics[height=0.7\textheight]{data-streams}         
+	\centering{\fontsize{20}{25pt}\selectfont\bf Streaming Data Platform}
 \end{gdsw}
 \begin{gdsw}
-	\centering\includegraphics[height=0.5\textheight]{sdp}         
+	\centering\includegraphics[height=\textheight]{streaming-centering}         
+	\centering{\fontsize{20}{25pt}\selectfont\bf Streaming Data Platform}
+\end{gdsw}
+\begin{gdsw}
+	\centering\includegraphics[height=0.5\textheight]{duckrabbit}         
 	\par
+	\centering{\fontsize{20}{25pt}\selectfont\bf Yet another ESB!?}
+	\note{Another magic boxes in the middle}
+\end{gdsw}
+\begin{gdsw}
+	\centering\includegraphics[height=0.5\textheight]{duckrabbit}         
+	\par
+	\centering{\fontsize{20}{25pt}\selectfont\bf Yet another ESB!?}
+	\note{Another magic boxes in the middle}
+\end{gdsw}
+\begin{gdsw}
+	\centering\includegraphics[height=\textheight]{kafka-cluster}  
+	\par       
+	\centering{\fontsize{20}{25pt}\selectfont\bf Streaming Data Platform}
+\end{gdsw}
+\begin{gdsw}
+	\centering\includegraphics[height=\textheight]{event-log}  
+	\par       
+	\centering{\fontsize{20}{25pt}\selectfont\bf Immutable event log}
+\end{gdsw}
+\begin{gdsw}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\centering\includegraphics[width=0.9\textwidth]{event-streaming-paradigm} 
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\large
+			\begin{itemize}
+				\item Don't route or just processing, it's storage and processing.
+				\pause
+				\item Allows downtime for maintenance
+				\pause
+				\item Backpressure
+				\item Built-in scalability
+				\item Dumb pipes, smart endpoints
+			\end{itemize}	
+		\end{column}
+	\end{columns}
+	\note{We could not only consume stream [data in motion], but also use it as database [data at rest]}
+\end{gdsw}
+\begin{gdsw}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\includegraphics[width=0.9\textwidth]{middlewares} 
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\large
+			They are friends!\\
+			Kafka is scalable, reliable, {\bf but}:
+			\begin{itemize}
+				\item Integration with legacy
+				\pause
+				\item Fast message delivery [Less than a second]
+				\pause
+				\item Synchronous Point to Point messaging
+				\item Complex Routing
+				\item Default protocol is proprietary
+			\end{itemize}	
+		\end{column}
+	\end{columns}	
+	\note{It's not silver bullet}
+\end{gdsw}
+\begin{gdsw}
+	\centering\includegraphics[height=0.4\textheight]{streaming-centering}         
 	\begin{center}
 		\begin{itemize}
-			\centering
-			\item Improve ETL
-			\item Realtime Analytics
-			\item Automated Governance
-			\item Superior Visualization
+			\item Data with short expiration time
+			\item Reduce data debt
+			\item Improve reaction speed. Especially for outstanding events
+			\item Reliable integration between systems with batteries built-in
+			\item Share your data streams with other projects
+			\item Reduce compliance burden
 		\end{itemize}
+		\note{So if you want to Reduce data debt - collected data that we need to analyze. 
+		Complience burden - platform with built in security
+		Battaries - reprocessing, zero-downtime, backpressure
+		}
 	\end{center}
+	% \begin{center}
+	% 	\begin{itemize}
+	% 		\item Improve ETL
+	% 		\item Realtime Analytics
+	% 		\item Automated Governance
+	% 		\item Superior Visualization
+	% 	\end{itemize}
+	% \end{center}
+	\note{So if you want to }
 \end{gdsw}
+% \begin{gdsw}
+% 	{\centering\fontsize{20}{25pt}\selectfont\bf "Whoever wants to reach a distant goal must take small steps."}\\
+% 	Saul Bellow
+% 	% Another magic boxes in the middle
+% \end{gdsw}
 \begin{gdsw}
 	References:
 	\begin{center}\small
@@ -266,6 +347,16 @@
 \end{gdsw}
     	
 \end{document}
+% Not ESB - store and processing data. We could rewind our streams
+% The ability of understanding processing and monitoring huge amount of data fast could save you life
+
+% This is how typical ecosystem
+% Kafka - immutable
+% - Cobol
+
+% So if in you project you have this things to solve you should ask for SDP
+% we already have something on shelfs and we're going to have more
+% you should consider SDP as a solution
 
 % https://en.wikipedia.org/wiki/Knight_Capital_Group
 % https://www.bbc.com/news/magazine-19214294
