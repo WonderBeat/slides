@@ -33,7 +33,7 @@
 % \setbeameroption{hide notes} % Only slides
 %\setbeameroption{show only notes} % Only notes
 \setbeameroption{show notes on second screen=right}
-\setbeamertemplate{note page}{\pagecolor{yellow!5}\vfill\insertnote\vfill}
+\setbeamertemplate{note page}{\large\pagecolor{yellow!5}\vfill\insertnote\vfill}
 
 % To give a presentation with the Skim reader (http://skim-app.sourceforge.net) on OSX so
 % that you see the notes on your laptop and the slides on the projector, do the following:
@@ -48,7 +48,6 @@
 % 7. Arrange windows so that notes.pdf is in full screen mode on your laptop
 %    and slides.pdf is in presentation mode on the projector.
 
-
 \graphicspath{
     {themes/gd/images/},
     {images/}
@@ -58,7 +57,7 @@
 \setbeamertemplate{footline}{%
    \raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
 
-\title{The Streaming Data Platform\\\small as a heavy duty enterprise data marketplace\\\tiny when to use it in your project. The case of MMA}
+\title{The Streaming Data Platform\\\small as a heavy duty enterprise data marketplace\\\tiny when to use it in your project}
 
 \begin{document}  
 \begin{titlePage} 
@@ -111,53 +110,90 @@
 	\centering\includegraphics[width=0.8\textwidth]{bigdata}
 	\par
 	Streaming Platforms
+	\note{Let's begin\\
+		Denis, Architect, engineer, more tech details in this part\\
+		Begin with small introduction. Some may have attend, but I'd like to present slightly different view / manner \\
+		And as I'm a tech \\
+		digits and plots
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{hdd-cost-2} 
 	\par	
-	For the past 35+ years or so, hard drives prices are constantly dropping
-	\note{Constantly dropping\\ From around \$500,000 per gigabyte in 1981 to less than \$0.02 per gigabyte today}
+	For the past 40+ years hard drives prices are constantly dropping
+	\note{
+		In our electronic devices we usually have HDDs and SSDs as storage\\
+		This plot shows how how price changed over the last 40 years\\
+		Constantly dropping\\ 
+		Twice a year \\
+		From around \$500,000 per gigabyte in 1981 to less than \$0.02 per gigabyte today
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{hdd-cost}\\
-	\centering\tiny [https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/]
 	\par\normalsize\centering\begin{itemize}
-	\item 2010 year - countries could store everything. i.e. USA PRIZM
+	\item 2010 - countries could store everything. i.e. China
 	\item 2015 - big companies could afford to store everything. i.e. Google
-	\item 2019 - everyone!?
+	\item 2019 - everyone!
 	\end{itemize}
 	\note{
 		So it became possible somewhere around 2010 for contries to store every data they could collect/intercept/sneak\\
-		Snowden showed that in PRIZM program USA collecting even encrypted data that they could not decrypt just for the furure
+		Sometimes for their survailance programs or even just in case\\
+		%Snowden showed that in PRIZM program USA collecting even encrypted data that they could not decrypt just for the furure
 		Somewhere in 2015 it become possible for large companies to collect everything
 	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{hdd-cost}\\
-	\centering\tiny [https://www.backblaze.com/blog/hard-drive-cost-per-gigabyte/]
 	\par\Large
 	So, the price is low, we store everything. 
 	\note{
-		And i.e. if we're Facebook it's a tough question whether we should create a task for our IT guys to clean up outdated data,\\
-		well this task could take several hours and Facebook IT time is not cheap, 
-		or we could just buy one more drive for storage.
+		And i.e. if we're Facebook it's a question whether we should create a task for our IT guys to clean up outdated data,\\
+		And you know that IT time is expensive. So maybe it's better just to buy one more drive for storage.\\
+		well this task could take several hours and Facebook IT time is expensive\\
+		More than several cents 	
 	}	
 \end{gdsw}
 \begin{gdsw}
 	\centering{\fontsize{30}{35pt}\selectfont\bf Information = Money}
 	\par\centering\Large
 	But could we earn {\bf more} money with all of this information we collecting.\\        
+	\note{
+		
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{bigdata}
 	\par
 	That's what basically we do in our BigData field
+	\note{
+		And we're good at it
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{dataoil}
 	\par
 	The world’s most valuable resource is no longer oil, but data
-	\note{So, nowday The world’s most valuable resource is no longer oil, but data\\ 
+	\note{
+		So nowdays everyone says that\\ the world’s most valuable resource is no longer oil, but data 
+	}
+\end{gdsw}
+\begin{gdsw}
+	\centering\includegraphics[height=0.3\textheight]{dataoil}
+	\par	
+	\begin{center}	
+		\begin{minipage}{.7\textwidth}			
+			\LARGE
+			\begin{itemize}
+				\item Cheap Storage
+				\item Collect Everything
+				\item Extract Values
+				\item ... Profit
+			\end{itemize}
+		\end{minipage}
+	\end{center}
+	\note{
+		Time to make profit\\
 		But sometimes it's not enough to collect lot of data and extract value from it. Let me explain with example
 	}
 \end{gdsw}
@@ -167,40 +203,53 @@
 	Do you know this company? 
 \end{gdsw}
 \begin{gdsw}
-	\centering\includegraphics[width=0.7\textwidth]{knight-capital} 
+	\centering\includegraphics[width=0.65\textwidth]{knight-capital} 
 	\par
 	The Knight Capital Group was an American global financial services firm engaging in market making, institutional sales and trading.\\
 	With its high-frequency trading algorithms {\bf Knight was the largest trader in U.S}.        
 \end{gdsw}
 \begin{gdsw}
-	\centering\includegraphics[width=0.7\textwidth]{knight-capital} 
+	\centering\includegraphics[width=0.6\textwidth]{knight-capital} 
 	\par
 	\begin{center}\LARGE
 		\begin{minipage}{.5\textwidth}
 			\begin{itemize}
-				\item BigData
-				\item Lot of analytics
+				\item Lot of Events/Data
+				\item Lot of Analytics
 			\end{itemize}
 		\end{minipage}
 	\end{center}
+	\note {
+		Lot of data - Events, Signals, Markers
+	}
 \end{gdsw}
 \begin{gdsw}
-	\centering\includegraphics[width=0.7\textwidth]{knight-capital} 
+	\centering\includegraphics[width=0.6\textwidth]{knight-capital} 
 	\par
 	On August 1st, 2012, Knight Capital deployed a new software update to their production servers.
 	They switched it on and immediately they started losing literally \$10 million [£6.4m] a minute.
-	\note{ And this went on for 45 minutes. At the end of it all they wound up having lost \$440 million }
+	\note { 
+		Once they deployed a new software update to their production servers\\
+		They started losing literally \$10 million a minute\\
+		And this went on for 45 minutes. \\At the end of it all they wound up having lost \$440 million 
+	}
 \end{gdsw}	
 \begin{gdsw}
-	\centering\includegraphics[width=0.7\textwidth]{trading} 
+	\centering\includegraphics[width=0.65\textwidth]{trading} 
 	\par
 	{\bf Humans} still {\bf watch the systems}, but {\bf the computers move far too quickly for us to react to everything they do}.\\
-	\note{ In a postmortem they said.. 
-	Due to computer glitch the company was making trades it didn't intend to make. That's how to lose almost half a billion dollars in a little over half an hour. }
+	\note{ In a postmortem they said.. \\
+		Due to computer glitch the company was making trades it didn't intend to make. \\
+		That's guys an example how to lose almost half a billion dollars in a little over half an hour. \\
+		It was a fatal day for them
+	}
 \end{gdsw}
 \begin{gdsw}
-	\centering{\fontsize{20}{25pt}\selectfont\bf The ability of\\understanding, processing and monitoring\\huge amount of data fast\\could save you life! }
-	\note{ conclusion is that sometimes... Another valuable example is my previous project }
+	\centering{\fontsize{20}{25pt}\selectfont\bf The ability of\\understanding, processing and monitoring huge amount of data fast\\could save you life! }
+	\note { 
+		conclusion is that sometimes... \\
+		Another valuable example is my previous project 
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[width=0.7\textwidth]{robbery2} 
@@ -212,6 +261,11 @@
 	\centering\includegraphics[width=0.7\textwidth]{fraud-sketch} 
 	\par
 	\LARGE Fraud Detection System
+	\note{
+		We had a lot of events. Different kind of them. \\
+		Events from our users and with machine learning we were looking for fraudlent behaviour\\
+		Anomalies
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{processing-lag} 
@@ -225,35 +279,50 @@
 			\end{itemize}
 		\end{minipage}
 	\end{center}
+	\note {
+		Here is First version of Fraud Detection application design\\
+		We were collecting 24h of data, processing it for 6 hours and than report some bad guys
+	}
 \end{gdsw}	
 \begin{gdsw}
 	\centering\Large We're loosing money!\\
-	\includegraphics[height=0.7\textheight]{smart-cat} 
+	\includegraphics[height=0.7\textheight]{itsfine} 
 	\par\centering
-	\note{But once, analytcs department made found out that we're loosing money. Quite a lot!\\
-		Fraudsters adapted to change their accounts every day, IPs every day, browsers every day.
+	\note{
+		But once, analytcs department found out that we're loosing money. Quite a lot!\\
+		Fraudsters adapted to change their accounts every day, IPs every day, browsers every day. \\
 		And this strategy works for them
 	}
-	\pause
-	30hr lag \rightarrow 70 000\$ per day
+	30hr lag \rightarrow {\bf 70 000\$ per day}
 \end{gdsw}
 \begin{gdsw}
 	\centering{\fontsize{30}{35pt}\selectfont\bf What could be improved here?}
+	\note{
+		Two examples have quite similar flow
+	}
 \end{gdsw}	
 \begin{gdsw}
 	\centering{\fontsize{30}{35pt}\selectfont\bf Reaction Time!}
+	\note {
+		Sometimes it's too late to react
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=\textheight]{data-aging} 
+	\note {
+		We could collect lot of data but this data may be useless tomorrow. \\
+		Even in 1 hour it may be useless for some sorts of analysis \\
+		So we decided to try streaming and 
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.7\textheight]{streaming-details} 
-	\par\pause\Large
-	30hr \rightarrow \Rightarrow 10mins\\
+	\par\Large
+	30 hrs \rightarrow \Rightarrow 10 mins\\
 	And Fraudsters were Disappointed
 	\note{
-		We made it but Knight Capital was not so lucky. 
-		With this kind of streaming solutions we could <next slide>
+		We made it but Knight Capital was not so lucky. \\
+		So in general with this kind of streaming solutions we could <next slide>
 	}
 \end{gdsw}
 \begin{gdsw}		
@@ -272,37 +341,52 @@
 			\end{itemize}	
 		\end{column}
 	\end{columns}
+	\note {
+		Especially for outstanding events\\
+		Predict some disasters
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{data-streams}\\
 	\centering{\fontsize{20}{25pt}\selectfont\bf Streaming Data Platform}
 	\note{
-		And we're building this kind of platform in Aduno, Streaming Data Platform, SDP project
+		And we're building this kind of platform in Aduno, Streaming Data Platform, SDP project\\
+		We're building capability to be fast\\
 		Roughly speaking it looks like this
 	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.6\textheight]{streaming-centering}\\        
 	\centering{\fontsize{20}{25pt}\selectfont\bf Streaming Data Platform}
+	\note{
+		You may say: But we already have something similar.\\ Looks like... wait, Denis \\
+		Another magic boxes in the middle
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.5\textheight]{duckrabbit}         
 	\par
 	\centering{\fontsize{20}{25pt}\selectfont\bf Yet another ESB!?}
-	\note{Another magic boxes in the middle\\ 
-		I could explain, but first I should explain some concepts. First of all our middleware
+	\note{		
+		I could explain, but first I should explain some concepts. \\First of all let's take a look at our middleware
 	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=\textheight]{kafka-cluster}  
 	\par       
 	\centering{\fontsize{20}{25pt}\selectfont\bf Streaming Data Platform}
-	\note{Multiple consumers and producers working with immutable log}
+	\note{
+		Kaka - it's database, special case database. Log Storage\\
+		Multiple consumers and producers working with immutable log
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.7\textheight]{event-log}  
 	\par       
 	\centering{\fontsize{20}{25pt}\selectfont\bf Immutable event log}
+	\note{
+		Consumers could shift backward and forward along this immutable log
+	}
 \end{gdsw}
 \begin{gdsw}
 	\begin{columns}
@@ -322,7 +406,10 @@
 			\end{itemize}	
 		\end{column}
 	\end{columns}
-	\note{We could not only consume stream [data in motion], but also use it as database [data at rest]\\
+	\note{
+		We could not only consume data in motion, but also use it as database \\	
+		Built-in scalability - you don't need another separate broker/cluster for another project\\
+		Consumers could read on their own pace\\
 		But don't think that SDP and ESBs are enemies, no. they are friends!\\
 		They are complementary
 	}
@@ -334,7 +421,7 @@
 		\end{column}
 		\begin{column}{0.6\textwidth}
 			\large
-			Kafka is scalable, reliable, {\bf but}:
+			SDP is scalable, reliable, {\bf but}:
 			\begin{itemize}
 				\item Integration with legacy
 				      \pause
@@ -346,8 +433,10 @@
 			\end{itemize}	
 		\end{column}
 	\end{columns}	
-	\note{Kafka and SDP are not silver bullets.\\
-	But still there are areas in which we can help. }
+	\note{
+		SDP is not silver bullet\\
+		But still there are areas in which we can help. 
+	}
 \end{gdsw}
 \begin{gdsw}
 	\centering\includegraphics[height=0.3\textheight]{streaming-centering}         
@@ -357,35 +446,24 @@
 			      \pause
 			\item You want to reduce data debt
 			      \pause
-			\item You want to improve reaction speed. Especially for outstanding events
+			\item Reaction speed is important for you. Especially for outstanding events
 			      \pause
-			\item You'd like to build reliable integration between systems with batteries built-in
+			\item You'd like to build reliable integration between systems. Integration with batteries built-in
 			      \pause
-			\item You think about how to share your data streams with other projects
+			\item You think about how to share your data with other projects
 			      \pause
 			\item You tired of compliance burden
 		\end{itemize}
-		\note{So if you want to Reduce data debt - collected data that we need to analyze. \\
-			Complience burden - platform with built in security\\
-			Battaries - reprocessing, zero-downtime, backpressure\\
-			So if in you project you have this things to solve you should ask for SDP and we're always open for your questions and ideas! ty
+		\note{
+			Data debt - you don't want to find yourself in situation when amount of data you collected is so huge that it becomes hard to analyze. \\
+			Complience burden - Security, audit ... we're ready for this.\\
+			platform with built-in security\\
+			Battaries - reprocessing, zero-dataloss maintenances, backpressure\\
+			So if in you project you have this things to solve you should consider SDP\\
+			We're always open for your questions and ideas! ty
 		}
 	\end{center}
-	% \begin{center}
-	% 	\begin{itemize}
-	% 		\item Improve ETL
-	% 		\item Realtime Analytics
-	% 		\item Automated Governance
-	% 		\item Superior Visualization
-	% 	\end{itemize}
-	% \end{center}
-	\note{So if you want to }
 \end{gdsw}
-% \begin{gdsw}
-% 	{\centering\fontsize{20}{25pt}\selectfont\bf "Whoever wants to reach a distant goal must take small steps."}\\
-% 	Saul Bellow
-% 	% Another magic boxes in the middle
-% \end{gdsw}
 \begin{gdsw}
 	\centering{\fontsize{20}{25pt}\selectfont\bf Thank you!}
 	\par
