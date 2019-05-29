@@ -9,6 +9,7 @@
 \usepackage{unicode-math}
 \usepackage{listings}
 \usepackage{cprotect}
+\usepackage{pgfpages}
 
 \usepackage[makeroom]{cancel}
 
@@ -16,7 +17,8 @@
 \usefonttheme{professionalfonts}
 
 
-\usepackage[sfdefault,scaled=1.1]{FiraSans}
+\usepackage[default,sfdefault,scaled=1.1]{sourcesanspro}
+
 \usepackage{sourcecodepro}
 \usepackage{graphicx}
 
@@ -29,6 +31,11 @@
 \usepackage{themes/gd/beamerouterthemegd}
 \usepackage{themes/gd/beamercolorthemegd}
 
+\setbeameroption{hide notes} % Only slides
+
+%\setbeameroption{show only notes} % Only notes
+% \setbeameroption{show notes on second screen=right}
+\setbeamertemplate{note page}{\large\pagecolor{green!5}\vfill\insertnote\vfill}
 
 \graphicspath{
     {themes/gd/images/},
@@ -40,9 +47,6 @@
    \raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
 
 \title{Time In Distributed Systems\\Pt.1}
-% \date[ISPN ’80]{27th International Symposium of Prime Numbers}
-\author[Euclid]{Euclid of Alexandria \texttt{euclid@alexandria.edu}}
-
 
 \begin{document}   
 	\begin{titlePage} 
@@ -66,12 +70,11 @@
 		\centering\includegraphics[scale=0.8]{bigdata} 
 	\end{gdblank}
 	\begin{gdblank}
-		\centering\includegraphics[scale=0.25]{garchitect} 
+		\centering\includegraphics[height=0.8\textheight]{garchitect} 
 		\par\LARGE
 		Software Architect
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{Data Streaming}
 		\centering\includegraphics[width=0.8\textwidth]{streaming} 
 	\end{gdblank}
 	\begin{gdblank}
@@ -96,31 +99,35 @@
 		\centering{\fontsize{100pt}{120pt}\selectfont\bf Boring}
 	\end{gdblank}   
 	\begin{gdblank}
-		% \frametitle{Hello}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
 				\centering\includegraphics[scale=0.6]{bigdata}
 			\end{column}
-			\pause 
 			\begin{column}{0.5\textwidth}
 				\centering\includegraphics[scale=0.23]{gdlogo}
 			\end{column}
-		\end{columns}        
+		\end{columns}   
+		\note{
+			Ну что же, поехали. биг дата, грид динамикс, время!
+		}     
 	\end{gdblank}
-	\begin{gdblank}
-		\centering\includegraphics[scale=0.8]{love-job} 
-	\end{gdblank}
+	% \begin{gdblank}
+	% 	\centering\includegraphics[scale=0.8]{love-job} 
+	% \end{gdblank}
 	\begin{gdblank}
 		\frametitle{Time} 
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[scale=5]{adventuretime} 
+				\centering\includegraphics[width=0.7\textwidth]{adventuretime} 
 			\end{column}
 			\pause 
 			\begin{column}{0.5\textwidth}
 				\centering\includegraphics[scale=0.3]{time2} 
 			\end{column}
-		\end{columns}            
+		\end{columns}   
+		\note{
+			Сегодня мы поговорим о времени. Но не о времени приключений или о журнале
+		}         
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Time}
@@ -133,24 +140,38 @@
 				\centering\includegraphics[scale=0.5]{strarum} 
 			\end{column}
 		\end{columns}            
+		\note{
+			А о часах, календарях, таймерах и о том как мы измеряем время, особенно
+			в распределенных системах
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Question}
-		\centering\Huge What is time?           
+		\centering\Huge What is time?     
+		\note{
+			Но сначала давайте попробуем ответить на вопрос\\
+			что такое время?
+			К примеру я бы мог ответить 
+		}      
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Time is ...}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[scale=0.16]{halflife} 
+				\centering\includegraphics[width=0.7\textwidth]{halflife} 
 				\\Way of arrange the order of events 
 			\end{column}
 			\pause 
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[scale=0.35]{einsteinspacetime} 
+				\centering\includegraphics[width=0.7\textwidth]{einsteinspacetime} 
 				\\Another dimension
 			\end{column}
 		\end{columns} 
+		\note{
+			К примеру я бы мог ответить что это способ упорядочить события\\
+			Или же, более образованые люди могут вспомнить теорию\\
+			пространства-времени Ньютона
+		}
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Definition of time}
@@ -162,47 +183,66 @@
 			\item What prevents everything from happening at once (physicist John Wheeler and others)
 			\item A linear continuum of instants (philosopher Adolf Grünbaum)
 		\end{itemize}
+		\note{
+			Однако, полное и целостное определение вермени до сих пор нерешенная задача \\
+			Многие светлые умы пытались. Физики, Философы, но до сих пор нет определения которое всем подходит
+		}
 	\end{gdblank}
-	% \begin{gdblank}
-	% 	\frametitle{Religion}
-	% 	\begin{columns}
-	% 		\begin{column}{0.5\textwidth}
-	% 			\centering\includegraphics[width=0.9\textwidth]{pray} 
-	% 		\end{column}
-	% 		\begin{column}{0.5\textwidth}
-	% 			\begin{block}{Wikipedia}
-	% 				In Zurvanism, Zurvan was perceived as the god of infinite time and space and was aka ("one", "alone").
-	% 			\end{block} 
-	% 		\end{column}
-	% 	\end{columns}     
-	% \end{gdblank}
+	\begin{gdblank}
+		\frametitle{Religion}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{pray} 
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{block}{Wikipedia}
+					In Zurvanism, Zurvan was perceived as the god of infinite time and space and was aka ("one", "alone").
+				\end{block} 
+			\end{column}
+		\end{columns}    
+		\note{
+			В поисках интересных определений времени мне даже удалось наткнуться на реально существующую религию в которой Бесконечное Время представляется богом.
+			Название "Зурван" происходит от персидского «zruvan», что означает «время».
+		} 
+	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Time is ...}
 		\LARGE\centering Time is something we deal with every day, and something that everyone thinks they 
 		\bf understand
+		\note{
+			Получается довольно забавно. Мы не знаем точно что такое время, однако работаем с ним каждый день.\\
+			И чем больше мы с ним работаем тем нам больше кажется что мы его понимаем.\\
+			Но это не так			
+		}
 	\end{gdblank} 
 	\begin{gdblank}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[width=\textwidth]{adventure} 
+				\centering\includegraphics[width=0.9\textwidth]{adventure} 
 			\end{column}
 			\begin{column}{0.5\textwidth}
 				\Huge\centering Game time! 
 			\end{column}
 		\end{columns}     		
+		\note{		
+			И чтобы это доказать, давайте попробуем пройти небольшую викторину\\
+			Викторину о времени\\
+			Сейчас будет несколько вопросов и если вам кажется что вы знаете ответ...
+		}
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Round 1}    
 		\begin{columns}
 			\begin{column}{0.70\textwidth}
 				\centering
-				\LARGE There are always 24 hours in a day 
+				\LARGE There are always\\
+				24 hours in a day 
 				\pause     
 			\end{column}
 			\begin{column}{0.3\textwidth}
 				\large\centering Daylight saving time 
 				\vskip0.5cm
-				\includegraphics[scale=0.5]{daylightsaving}
+				\includegraphics[width=0.7\textwidth]{daylightsaving}
 			\end{column}
 		\end{columns}
 	\end{gdblank} 
@@ -212,7 +252,8 @@
 			\frametitle{Round 2}    
 			\begin{column}{0.70\textwidth}
 				\centering
-				\LARGE There are 60 seconds in a minute 
+				\LARGE There are always\\
+				60 seconds in a minute 
 				\pause     
 			\end{column}
 			\begin{column}{0.3\textwidth}
@@ -221,23 +262,27 @@
 				\includegraphics[width=0.9\textwidth]{leapsecond}
 			\end{column}
 		\end{columns}
+		\note{
+			Поскольку вращение Земли постепенно замедляется, разница между средними солнечными сутками и сутками в системе СИ (составляющими ровно 24 часа) в среднем растёт
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Round 3}    
 		\begin{columns}
 			\begin{column}{0.70\textwidth}
 				\centering
-				\LARGE A month always ends in the same year it started
+				\LARGE A month not always\\
+				ends in the same year it started
 				\pause     
 			\end{column}
 			\begin{column}{0.3\textwidth}
 				\large\centering 
 				\begin{itemize}
-					\item Fiscal year/calendar
+					\item Fiscal year
 					\item Chinese Year
 				\end{itemize}
 				\vskip0.5cm
-				\includegraphics[scale=0.5]{china}
+				\includegraphics[width=0.7\textwidth]{china}
 			\end{column}
 		\end{columns}
 	\end{gdblank} 
@@ -246,57 +291,77 @@
 		\begin{columns}
 			\begin{column}{0.70\textwidth}
 				\centering
-				\LARGE Month could have less than 20 days
+				\LARGE Month could have\\
+				less than 20 days
 				\pause     
 			\end{column}
 			\begin{column}{0.3\textwidth}
 				\large\centering  September 1752 had 19 days in British Empire
 				\vskip0.5cm
-				\includegraphics[scale=0.35]{british}
+				\includegraphics[width=0.7\textwidth]{british}
 			\end{column}
 		\end{columns}
 	\end{gdblank} 
 	\begin{gdblank}
-		\frametitle{Everyone's do it wrong!}
+		\frametitle{Everyone's do it wrong!?}
 		\centering{\fontsize{140pt}{150pt}\selectfont\bf ?}
+		\note{
+			Вот так вот не просто. И под час меня одолевает мысль что мало кто беспокоится о правильной работе со временем. \\
+			Или вообще никто. Особенно после вот таких ситуаций - 
+		}
 	\end{gdblank}   
 	\begin{gdblank}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-				\includegraphics[width=\textwidth]{aliens}				
-
+				\centering\includegraphics[width=0.9\textwidth]{aliens}				
 			\end{column}
 			\pause
 			\begin{column}{0.5\textwidth}
-				\includegraphics[width=\textwidth]{cpu}
+				\centering\includegraphics[width=0.9\textwidth]{cpu}
 			\end{column}
-		\end{columns}				
+		\end{columns}	
+		\note{
+			Однажды Боевой кластер в зависшем состоянии\\
+			Мы начали проверять логи, мониторинг..\\
+		}			
 	\end{gdblank}  
 	\begin{gdblank}		
-		\includegraphics[width=\textwidth]{kernel-time-bug}
+		\centering\includegraphics[width=0.9\textwidth]{kernel-time-bug}
 	\end{gdblank}  
 	\begin{gdblank}		
 		\frametitle{Java Code}
-		\includegraphics[width=\textwidth]{sleep}
+		\centering\includegraphics[width=\textwidth]{sleep}
 	\end{gdblank}   
 	\begin{gdblank}
-		\includegraphics[width=\textwidth]{jvm-time-bug}
+		\centering\includegraphics[height=0.9\textheight]{jvm-time-bug}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Distributed environment}
 		\centering
 		\includegraphics[width=0.9\textwidth]{2-problems}
+		\note{
+			В итоге что имеем, даже серьезные, крупные проекты допускают ошибки в этой области\\
+			Но все становится еще хуже когда мы начинаем работать с распределенными системами\\
+			А в них у нас есть 2 основные проблемы\\
+			как обеспечить доставку сообщения один и только один раз [Задача двух генералов]\\
+			а так же как обеспечить порядок обработки сообщений, гарантировать его			
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\includegraphics[width=\textwidth]{networkb}
+		\note{
+			И вот если с гарантией доставки время нам помочь не может\\
+			то с последовательностью событий которые прилетают к нам в распределенную систему\\
+			кажется что что-то можно придумать... применив таймстемпы
+		}
 	\end{gdblank}   
 	\begin{gdblank}
 		\begin{columns}
 			\begin{column}{0.6\textwidth}
-				\includegraphics[width=\textwidth]{cassandrawrite}
+				\includegraphics[width=0.9\textwidth]{cassandrawrite}
 			\end{column}
 			\begin{column}{0.4\textwidth}
-				\includegraphics[width=\textwidth]{cassandra}
+				\includegraphics[width=0.9\textwidth]{cassandra}
 				\centering
 				\begin{itemize}
 					\item Peer to Peer Database
@@ -305,6 +370,10 @@
 				\tiny its difficult to reason about events in this system
 			\end{column}
 		\end{columns}
+		\note{
+			Ну вот смотрите, к прмеру, у нас есть кассандра\\
+			ужасно сложно судить о последовательности событий в этой базе данных
+		}
 	\end{gdblank}   
 	\begin{gdblank}
 		\frametitle{I am the Law and Order}
