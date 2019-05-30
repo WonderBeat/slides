@@ -31,10 +31,10 @@
 \usepackage{themes/gd/beamerouterthemegd}
 \usepackage{themes/gd/beamercolorthemegd}
 
-\setbeameroption{hide notes} % Only slides
+% \setbeameroption{hide notes} % Only slides
 
 %\setbeameroption{show only notes} % Only notes
-% \setbeameroption{show notes on second screen=right}
+\setbeameroption{show notes on second screen=right}
 \setbeamertemplate{note page}{\large\pagecolor{green!5}\vfill\insertnote\vfill}
 
 \graphicspath{
@@ -56,7 +56,8 @@
 	\begin{gdblank}
 		\frametitle{Hello}
 		\centering\includegraphics[scale=2.3]{denis}
-		\\Denis Golovachev
+		\par\LARGE
+		Denis Golovachev
 	\end{gdblank} 
 	\begin{gdblank}
 		\centering\includegraphics[scale=0.3]{gdlogo}
@@ -64,7 +65,8 @@
 	\begin{gdblank}
 		\frametitle{SPB}
 		\centering\includegraphics[scale=0.6]{spb}
-		\\Saint-Petersburg
+		\par\LARGE
+		Saint-Petersburg
 	\end{gdblank}
 	\begin{gdblank}
 		\centering\includegraphics[scale=0.8]{bigdata} 
@@ -94,6 +96,10 @@
 		\textbf{
 			Professor
 		}		
+		\note{
+			Так же у нас есть биг дата школа\\
+			в которой я являюсь профессором
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\centering{\fontsize{100pt}{120pt}\selectfont\bf Boring}
@@ -126,7 +132,8 @@
 			\end{column}
 		\end{columns}   
 		\note{
-			Сегодня мы поговорим о времени. Но не о времени приключений или о журнале
+			И сразу хочу сказать что время, тема обширная и мы можем говорить о ней в том или другом контексте\\
+			поэтому сразу давайте сузим область. Сегодня мы будем говорить о			
 		}         
 	\end{gdblank}
 	\begin{gdblank}
@@ -141,6 +148,7 @@
 			\end{column}
 		\end{columns}            
 		\note{
+
 			А о часах, календарях, таймерах и о том как мы измеряем время, особенно
 			в распределенных системах
 		}
@@ -149,7 +157,7 @@
 		\frametitle{Question}
 		\centering\Huge What is time?     
 		\note{
-			Но сначала давайте попробуем ответить на вопрос\\
+			Начнем с вопроса\\
 			что такое время?
 			К примеру я бы мог ответить 
 		}      
@@ -184,6 +192,7 @@
 			\item A linear continuum of instants (philosopher Adolf Grünbaum)
 		\end{itemize}
 		\note{
+			Но чем дольше я искал, тем больше понимал что\\
 			Однако, полное и целостное определение вермени до сих пор нерешенная задача \\
 			Многие светлые умы пытались. Физики, Философы, но до сих пор нет определения которое всем подходит
 		}
@@ -202,7 +211,7 @@
 		\end{columns}    
 		\note{
 			В поисках интересных определений времени мне даже удалось наткнуться на реально существующую религию в которой Бесконечное Время представляется богом.
-			Название "Зурван" происходит от персидского «zruvan», что означает «время».
+			Сильно, не правда ли
 		} 
 	\end{gdblank}
 	\begin{gdblank}
@@ -252,8 +261,8 @@
 			\frametitle{Round 2}    
 			\begin{column}{0.70\textwidth}
 				\centering
-				\LARGE There are always\\
-				60 seconds in a minute 
+				\LARGE Minute could be longer than\\
+				60 seconds
 				\pause     
 			\end{column}
 			\begin{column}{0.3\textwidth}
@@ -285,6 +294,11 @@
 				\includegraphics[width=0.7\textwidth]{china}
 			\end{column}
 		\end{columns}
+		\note{
+			Нет, тут все зависит от календаря и от самого понятия "год"\\
+			Фина́нсовый год, китайский новый год\\
+			Обычно финансовый год не совпадает с календарным. Например, в США финансовый год установлен с 1 октября по 30 сентября, в Японии — с 1 апреля по 31 марта\\						
+		}
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Round 4}    
@@ -307,7 +321,7 @@
 		\centering{\fontsize{140pt}{150pt}\selectfont\bf ?}
 		\note{
 			Вот так вот не просто. И под час меня одолевает мысль что мало кто беспокоится о правильной работе со временем. \\
-			Или вообще никто. Особенно после вот таких ситуаций - 
+			Особенно после вот таких ситуаций из жизни. Сейчас расскажу
 		}
 	\end{gdblank}   
 	\begin{gdblank}
@@ -342,8 +356,10 @@
 		\note{
 			В итоге что имеем, даже серьезные, крупные проекты допускают ошибки в этой области\\
 			Но все становится еще хуже когда мы начинаем работать с распределенными системами\\
-			А в них у нас есть 2 основные проблемы\\
-			как обеспечить доставку сообщения один и только один раз [Задача двух генералов]\\
+			А в них у нас есть 2 основные проблемы
+			\par
+			как обеспечить доставку сообщения один и только один раз [Задача двух генералов]
+			\par
 			а так же как обеспечить порядок обработки сообщений, гарантировать его			
 		}
 	\end{gdblank}
@@ -372,7 +388,9 @@
 		\end{columns}
 		\note{
 			Ну вот смотрите, к прмеру, у нас есть кассандра\\
-			ужасно сложно судить о последовательности событий в этой базе данных
+			ужасно сложно судить о последовательности событий в этой базе данных\\
+			Представьте что каждая нода ведет свою личную историю событий.\\
+			Это не распределенная база данных, это Хаос
 		}
 	\end{gdblank}   
 	\begin{gdblank}
@@ -381,6 +399,12 @@
 		\includegraphics[scale=0.22]{order}
 		\\Needed to establish the order of events that have occurred in the system or when they will occur in the future
 	\end{gdblank}
+	\note{		
+		А хочется чтобы база работала как единое целое\\
+		Как бы нам упорядочить этот хаос?\\ Добавить хотябы каких-нибудь правил, ввести синхронизацию\\
+		Навести порядок\\
+		Сделать так чтобы история событий в системе была общей, целостной
+	}
 	\begin{gdblank}
 		\frametitle{Order in Chaos}
 		\LARGE
@@ -390,6 +414,19 @@
 			\item Mutual exclusions
 			\item Debug [Resumption of execution]
 		\end{itemize}
+		\note{
+			Вот если бы все события приходящие в систему мы бы могли расположить последовательно во времени
+			\par 
+			\begin{itemize}
+				\item поддерживать целостность данных
+				\item строить надежные системы которые могут предоставлять гарантии по процессу обработки
+				\item реализовывать такие вещи как взаимные блокировки
+			\end{itemize}
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\LARGE
+		Let's try Common Clock [Wall Clock]!
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Common Clock}
@@ -401,6 +438,14 @@
 			\item before: an event that happens in a previous clock tick
 			\item after: an event that happens in a subsequent clock tick
 		\end{itemize}
+		\note{
+			Определить отношение\\
+			Сказать что одно было раньше другого или одно было после другого
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\LARGE
+		But there's {\bf no Common Clock} in distributed systems!
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Distributed Systems}
@@ -415,20 +460,27 @@
 		\frametitle{Wall Clock}		
 		\centering
 		\LARGE	
-		Let's use 'Wall Clocks' and NTP!?
+		Let's use 'Wall Clocks' and ... NTP!?
 		\par
 		\includegraphics[scale=0.20]{clock}
 		\small
 		\\When kept under tension the quartz crystal oscillates at a well-defined frequency
+		\note{
+			Но все же давайте попробуем. Попробуем обычные часы и их синхронизацию
+			С настенными часами у нас есть 2 основные проблемы, Drift \& Skew\\
+			СНОС и СКОС
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Clock Drift}
 		\begin{columns}
 			\begin{column}{0.6\textwidth}
+				\centering
 				We can't have perfect clocks
-				\includegraphics[scale=0.5]{clockdrift}
+				\includegraphics[scale=0.4]{clockdrift}
 			\end{column}
 			\begin{column}{0.4\textwidth}
+				\centering
 				Ordinary clocks drift by about 1 sec in 10 days
 			\end{column}
 		\end{columns}
@@ -455,9 +507,12 @@
 	\begin{gdblank}
 		\frametitle{I'm running NTP. I'm good}
 		\centering
-		\includegraphics[scale=0.20]{accuracy}
+		\includegraphics[scale=0.4]{accuracy}
 		\\\tiny
 		* Choosing the correct Time Synchronization Protocol and incorporating the 1756-TIME module into your Application \\ By: Josh Matson
+		\note{
+			Нам придется использовать сложные алгоритмы, а еще и пристально следить за нашими системами стобы СКОС не появился и все не развалилось
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Boom!}
@@ -468,19 +523,36 @@
 		Correction of time does not mean that all machines agree on time, it just means they are much \textbf{closer to each other on average}
 	\end{gdblank}
 	\begin{gdblank}
+		\frametitle{Distributed Systems}
+		\LARGE
+		Wall clocks solutions require
+		\begin{itemize}
+			\item Sophisticated algorithms or special hardware
+			\item Monitoring
+		\end{itemize}
+	\end{gdblank}
+	\begin{gdblank}
 		\frametitle{Leslie Lamport}
 		\centering
 		\includegraphics[height=0.6\textheight]{lamport} \\
 		\large
 		Lamport, L. (1978). "Time, clocks, and the ordering of events in a distributed system"
+		\note{
+			"Время, часы и порядок событий в распределенной системе"
+		}
 	\end{gdblank}
 	\begin{gdblank}
-		\centering
+		\centering\large
 		\begin{itemize}
 			\item The important contribution of Lamport is that in a distributed system, \textbf{clocks need not be synchronized absolutely}
 			\item It is \textbf{not important} that all \textbf{processes agree on what the actual time is, but that they agree on the order in which events occur}
 			\item Happens Before
 		\end{itemize}		
+		\note{
+			Одна из основных идей\\
+			не нужно синхронизировать часы идеально\\
+			процессам не обязательно договариваться о времени чтобы расставить события во времени
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Happens Before}
@@ -493,7 +565,14 @@
 		\par
 		If $a\rightarrow b$ happens between \textbf{two process}, and events $x$ and $y$ occur on another set of processes and these two sets of processes don’t exchange messages then:\\
 		we cannot say whether $x\rightarrow y$ or $y\rightarrow x$ from the perspective of the first set of processes
-		\tiny outcome
+		\note{
+			если событие а это "послыкка сообщения" а любому процессу, а b это событие когда это сообщение было получено
+			outcome
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\LARGE
+		Lamport Clocks
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Example}
@@ -535,6 +614,7 @@
 				\includegraphics[height=0.8\textheight]{lamport_clocks_dia}			
 			\end{column}
 			\begin{column}{0.5\textwidth}
+				\LARGE
 				\begin{itemize}
 					\item $m1 \rightarrow m3$?
 					\item $m2 \rightarrow m3$? 
@@ -568,6 +648,7 @@
 			\end{column}
 			\begin{column}{0.5\textwidth}
 				Alice, Ben, Cathy, and Dave want to rob a bank
+				\par\large
 				\begin{itemize}
 					\item They could send P2P messages
 					\item No leader
@@ -585,8 +666,11 @@
 date = Wednesday
 vclock = Alice:1
 			\end{lstlisting}
-		\end{column}	
+		\end{column}			
 	\end{columns} 
+	\note{
+		Среда
+	}
 	\end{gdblank}
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
@@ -601,6 +685,9 @@ vclock = Alice:1, Ben:1
 			\end{lstlisting}
 		\end{column}	
 	\end{columns} 
+	\note{
+		Вторник
+	}
 	\end{gdblank}
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
@@ -615,6 +702,9 @@ vclock = Alice:1, Ben:1, Dave:1
 			\end{lstlisting}
 		\end{column}	
 	\end{columns} 
+	\note{
+		Вторник
+	}
 	\end{gdblank}
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
@@ -629,6 +719,9 @@ vclock = Alice:1, Cathy:1
 			\end{lstlisting}
 		\end{column}	
 	\end{columns} 
+	\note{
+		Четверг
+	}
 	\end{gdblank}
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
@@ -704,12 +797,12 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 	\end{gdblank}
 	\begin{gdblank}		
 		\centering
-		\includegraphics[height=\textheight]{mafia}
+		\includegraphics[height=0.9\textheight]{mafia}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{So, What!?}
 		\centering
-		\large 
+		\LARGE 
 		So... What Did We Get Out Of All of This?
 	\end{gdblank}	
 	% \begin{gdblank}
@@ -741,21 +834,35 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 			      	\item slow and grow
 			      \end{itemize}
 		\end{itemize}
+		\note{
+			И вот здесь вот я хотел бы взять паузу\\
+			Паузу, ведь мы проделали довольно большой путь, много чего разобрали\\
+			Однако, \\
+			Но дальше, там осталось еще очень много чего интересного. На еще одну презентацию, к примеру
+		}
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{So many things to tell you}
+		\large
 		\begin{itemize}
 			\item GPS Clocks
 			\item Atomic Clocks in Google Spanner Database
 			\item UTC, TAI, TCG and TCB coordinate time standards
+			\pause
 			\item Why do clocks run clockwise?
-			\item Why there were no December 30 in Samoa?
+			\item Why there was no 30 December 2011 in Samoa?
 		\end{itemize}
+		\note{
+			Ну а текущая моя презентация подходит к концу
+		}
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Thank you! That was Algebraic! Questions?}
-		\begin{columns}
+		\begin{columns}			
 			\begin{column}{0.5\textwidth}
+				\begin{center}
+				\begin{minipage}{.7\textwidth}		
+				\LARGE
 				\begin{itemize}
 					\item Thank
 					\item You 
@@ -764,6 +871,8 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 					\item Time
 				\end{itemize}
 				% Hope your software will never run on a space ship that is orbiting a black hole				
+			\end{minipage}
+		\end{center}
 			\end{column}
 			\begin{column}{0.5\textwidth}				
 				\includegraphics[width=0.9\textwidth]{thankyou-at}			
