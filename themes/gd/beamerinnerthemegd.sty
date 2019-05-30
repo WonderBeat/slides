@@ -50,6 +50,18 @@
       }
 }
 
+\NewEnviron{gdthankyou}[1][]{
+      {     
+    \usebeamercolor{normal text}
+    \usebackgroundtemplate{
+        \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{thankyou}\hfil}\vfil}
+    }  
+  \begin{frame}{#1}
+  \BODY
+  \end{frame}
+      }
+}
+
 \NewEnviron{gdsw}[1][]{
       {     
     \usebeamercolor{normal text}
