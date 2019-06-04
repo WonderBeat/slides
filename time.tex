@@ -31,10 +31,10 @@
 \usepackage{themes/gd/beamerouterthemegd}
 \usepackage{themes/gd/beamercolorthemegd}
 
-\setbeameroption{hide notes} % Only slides
+% \setbeameroption{hide notes} % Only slides
 
 %\setbeameroption{show only notes} % Only notes
-% \setbeameroption{show notes on second screen=right}
+\setbeameroption{show notes on second screen=right}
 \setbeamertemplate{note page}{\large\pagecolor{green!5}\vfill\insertnote\vfill}
 
 \graphicspath{
@@ -60,24 +60,56 @@
 		Denis Golovachev
 	\end{gdblank} 
 	\begin{gdblank}
-		\centering\includegraphics[height=0.7\textheight]{gdlogo}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{denis}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=\textwidth]{gdlogo}
+			\end{column}
+		\end{columns}   		
 	\end{gdblank}
 	\begin{gdblank}
-		\frametitle{SPB}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{bigdata}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=\textwidth]{garchitect}
+				\par\LARGE
+				Software Architect
+			\end{column}
+		\end{columns}   		
+	\end{gdblank}
+	\begin{gdblank}
 		\centering\includegraphics[scale=0.6]{spb}
 		\par\LARGE
 		Saint-Petersburg
 	\end{gdblank}
 	\begin{gdblank}
 		\centering\includegraphics[height=0.9\textheight]{buzzwords}
-	\end{gdblank}
+	\end{gdblank}	
 	\begin{gdblank}
-		\centering\includegraphics[scale=0.8]{bigdata} 
-	\end{gdblank}
-	\begin{gdblank}
-		\centering\includegraphics[height=0.8\textheight]{garchitect} 
-		\par\LARGE
-		Software Architect
+		\LARGE\centering
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}
+					\item Common Clock
+					\item Causality
+					\item Fiscal year
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}					
+					\item Drift and Skew
+					\item Peer to Peer
+					\item Exactly-once delivery
+				\end{itemize}
+			\end{column}
+		\end{columns}   
+		\note{
+			Но вернемся к нашему приветствию
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\centering\includegraphics[width=0.8\textwidth]{streaming} 
@@ -85,9 +117,9 @@
 	\begin{gdblank}
 		\centering\includegraphics[width=0.9\textwidth]{streaming-details} 
 	\end{gdblank}
-	\begin{gdblank}
-		\centering\includegraphics[width=0.7\textwidth]{tech-part} 
-	\end{gdblank}
+	% \begin{gdblank}
+	% 	\centering\includegraphics[width=0.7\textwidth]{tech-part} 
+	% \end{gdblank}
 	\begin{gdblank}
 		\centering\includegraphics[width=0.7\textwidth]{tech-all} 
 	\end{gdblank}
@@ -113,10 +145,10 @@
 	\begin{gdblank}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[scale=0.6]{bigdata}
+				\centering\includegraphics[scale=0.7]{bigdata}
 			\end{column}
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[width=0.7\textwidth]{gdlogo}
+				\centering\includegraphics[width=0.8\textwidth]{gdlogo}
 			\end{column}
 		\end{columns}   
 		\note{
@@ -172,12 +204,12 @@
 		\frametitle{Time is ...}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[width=0.7\textwidth]{halflife} 
+				\centering\includegraphics[width=0.8\textwidth]{halflife} 
 				\\Way of arrange the order of events 
 			\end{column}
 			\pause 
 			\begin{column}{0.5\textwidth}
-				\centering\includegraphics[width=0.7\textwidth]{einsteinspacetime} 
+				\centering\includegraphics[width=0.8\textwidth]{einsteinspacetime} 
 				\\Another dimension
 			\end{column}
 		\end{columns} 
@@ -240,7 +272,7 @@
 			\end{column}
 		\end{columns}     		
 		\note{		
-			И чтобы это доказать, давайте попробуем пройти небольшую викторину\\
+			И чтобы в этом еще раз убедиться, давайте попробуем пройти небольшую викторину\\
 			Викторину о времени\\
 			Сейчас будет несколько вопросов и если вам кажется что вы знаете ответ...
 		}
@@ -370,6 +402,7 @@
 		}
 	\end{gdblank}
 	\begin{gdblank}
+		\frametitle{Distributed System Topology}
 		\includegraphics[width=\textwidth]{networkb}
 		\note{
 			И вот если с гарантией доставки время нам помочь не может\\
@@ -417,8 +450,8 @@
 		\begin{itemize}
 			\item Maintain consistency
 			\item Build reliable systems
-			\item Mutual exclusions
 			\item Debug [Resumption of execution]
+			\item Mutual exclusions
 		\end{itemize}
 		\note{
 			Вот если бы все события приходящие в систему мы бы могли расположить последовательно во времени
@@ -473,7 +506,7 @@
 		\\When kept under tension the quartz crystal oscillates at a well-defined frequency
 		\note{
 			Но все же давайте попробуем. Попробуем обычные часы и их синхронизацию
-			С настенными часами у нас есть 2 основные проблемы, Drift \& Skew\\
+			С настенными часами у нас есть 2 основные проблемы, c которыми придется бороться Drift \& Skew\\
 			СНОС и СКОС
 		}
 	\end{gdblank}
@@ -483,7 +516,7 @@
 			\begin{column}{0.6\textwidth}
 				\centering
 				We can't have perfect clocks
-				\includegraphics[scale=0.4]{clockdrift}
+				\includegraphics[width=0.9\textwidth]{clockdrift}
 			\end{column}
 			\begin{column}{0.4\textwidth}
 				\centering
@@ -494,21 +527,27 @@
 	\begin{gdblank}
 		\frametitle{Clock Skew}
 		\centering
-		\includegraphics[scale=0.15]{skew}
+		\includegraphics[scale=0.2]{skew}
 		\\Skew: the difference between the times on two clocks (at any instant)
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{I'm running NTP. I'm good}
-		\centering\includegraphics[scale=0.15]{ntp}
+		\centering\includegraphics[scale=0.2]{ntp}
 		\par
 		The challenge with this approach is that there is a delay in the transmission from the time server to the client receiving the time update
 		\\This \textbf{delay is not constant for all requests}. Some request may be faster and others slower
+		\note{
+			И казалось бы для этого у нас есть протоколы. такие как NTP.\\
+			Протоколы, призванные синхронизировать время на машинах в сети.\\
+			Однако, все эти протоколы не идеальны. Они основаны на замерении задержек между сервером времени и машиной на которой нужно настроить время\\
+			Да ну, скажете вы. Нам и такого хватит
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{I'm running NTP. I'm good}
 		\centering													   
 		\LARGE
-		\alt<2>{1 / 600000 = 0.0000016 ... microsecond?}{600000 events per second} 
+		\alt<2>{1 / 600000 = 0.0000016 ... microsecond?}{{\bf 600000} events per second} 
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{I'm running NTP. I'm good}
@@ -527,6 +566,9 @@
 		\includegraphics[height=0.6\textheight]{photofinish}
 		\large \\
 		Correction of time does not mean that all machines agree on time, it just means they are much \textbf{closer to each other on average}
+		\note{
+			А все потому что алгоритмы не могут синхронизовать часы точно, сушествует лишь возможность уменьшить расхождение между часами на разных машинах
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Distributed Systems}
@@ -562,9 +604,9 @@
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Happens Before}
-		The relation '\rightarrow' on the set of events of a system is a smallest relation satisfying three conditions
+		The relation $'\rightarrow'$ on the set of events of a system is a smallest relation satisfying three conditions
 		\begin{itemize}
-			\item If $a$ and $b$ are events \textbf{in the same process}, and $a$ comes before $b$, then $a$ \rightarrow $b$ 
+			\item If $a$, $b$ are events \textbf{in the same process}, and $a$ comes before $b$, then $a\rightarrow b$ 
 			\item If $a$ is the sending of a message by one process and $b$ is the receipt of the same message by another process, then $a\rightarrow b$
 			\item Transitive. If $a\rightarrow b$ and $b\rightarrow c$ then $a\rightarrow c$. Two distinct events $a$ and $b$ are said to be concurrent if $a\cancel{\rightarrow} b$ and $b\cancel{\rightarrow} a$
 		\end{itemize}				
@@ -601,10 +643,13 @@
 			\end{column}	
 		\end{columns}
 	\end{gdblank}
+	\note{
+		транзакции
+	}
 	\begin{gdblank}
 		\frametitle{Lamport Clocks Limitations}
 		\centering
-		\large		
+		\LARGE
 		With Lamport’s clocks nothing can be said about \textbf{the actual time} of a and b.
 	\end{gdblank}
 	\begin{gdblank}
@@ -621,10 +666,16 @@
 			\end{column}
 			\begin{column}{0.5\textwidth}
 				\LARGE
-				\begin{itemize}
-					\item $m1 \rightarrow m3$?
-					\item $m2 \rightarrow m3$? 
-				\end{itemize}
+				\begin{center}									
+				\begin{minipage}{0.6\textwidth}
+					\begin{itemize}
+						\item $m1 \rightarrow m3$
+						\item $m2 \rightarrow m3$ 
+					\end{itemize}
+				\end{minipage}
+				\end{center}				
+				\large
+				Knowing $m1\rightarrow m3$ and $m2\rightarrow m3$ shows $m3$ did not cause $m1$ or $m2$ but we cannot say which initiated $m3$
 			\end{column}	
 		\end{columns}
 	\end{gdblank}
@@ -745,8 +796,11 @@ vclock = Alice:1, Ben:1, Dave:1
 date = Thursday
 vclock = Alice:1, Cathy:1
 			\end{lstlisting}
-		\end{column}	
+		\end{column}			
 	\end{columns} 
+	\note{
+		Вторник и четверг
+	}
 	\end{gdblank}
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
@@ -761,6 +815,9 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 			\end{lstlisting}
 		\end{column}	
 	\end{columns} 
+	\note{
+		Четверг
+	}
 	\end{gdblank}
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
@@ -780,6 +837,9 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 			\end{lstlisting}
 		\end{column}	
 	\end{columns} 
+	\note{
+		Вторник и четверг
+	}
 	\end{gdblank}
 	\cprotEnv\begin{gdblank}
 	\begin{columns}
@@ -841,12 +901,24 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 			      \end{itemize}
 		\end{itemize}
 		\note{
+			
+		}
+	\end{gdblank} 
+	\begin{gdblank}
+		\LARGE\centering
+		\includegraphics[height=0.7\textheight]{errors}
+		\par
+		Think ahead! Think advance!
+	
+		\note{
+			Нет плохих решений, нет хороших. Есть точно подходящие и не подходящие\\
+			На каждой системе вы столкнетесь с этой проблемой.  Вы должны понимать задачу и требования. Если об этом не позаботится, то придется потом лепить костили или все переписывать\\
 			И вот здесь вот я хотел бы взять паузу\\
 			Паузу, ведь мы проделали довольно большой путь, много чего разобрали\\
 			Однако, \\
 			Но дальше, там осталось еще очень много чего интересного. На еще одну презентацию, к примеру
 		}
-	\end{gdblank} 
+	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{So many things to tell you}
 		\large
@@ -890,7 +962,7 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 \end{document}
 % IT's hard but we could deal with it
 % Java code
-
+% https://lkml.org/lkml/2012/7/1/203
 
 % https://literature.rockwellautomation.com/idc/groups/literature/documents/wp/enet-wp030_-en-e.pdf
 % gps clocks
