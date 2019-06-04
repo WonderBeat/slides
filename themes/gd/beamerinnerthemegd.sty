@@ -21,8 +21,8 @@
 \setbeamercolor{block title}{use=structure,fg=white,bg=purple!75!black}
 \setbeamercolor{block body}{use=structure,fg=black,bg=white!20!white}
 
-\setbeamerfont{title}{series=\bfseries}
-\setbeamerfont{frametitle}{series=\fontspec{Fira Sans}}
+\setbeamerfont{title}{series=\bfseries\fontsize{18pt}{20pt}\fontspec{Source Sans Pro}}
+\setbeamerfont{frametitle}{series=\bfseries\fontspec{Source Sans Pro}}
 
 
 \mode<presentation>
@@ -32,7 +32,7 @@
     \usebackgroundtemplate{
         \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-front}\hfil}\vfil}
     }  
-  \begin{frame}{#1}
+  \begin{frame}[noframenumbering,plain]
   \BODY
   \end{frame}
       }
@@ -40,11 +40,12 @@
 
 \NewEnviron{gdblank}[1][]{
       {     
-    \usebeamercolor{normal text}
+    % \usebeamercolor{normal text}
     \usebackgroundtemplate{
         \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-blank}\hfil}\vfil}
     }  
-  \begin{frame}{#1}
+  \begin{frame}
+  \frametitle{\vfill}
   \BODY
   \end{frame}
       }
@@ -99,18 +100,23 @@
       }
 }
 
+\setbeamertemplate{headline}{}
+\headheight=0pt
+\addtolength{\textheight}{-40pt}
+
 \setbeamertemplate{frametitle}{
   \usebeamercolor{normal text}
-  % \vspace{0.2cm}
-  \begin{beamercolorbox}[sep=2pt,ht=0.8cm]{frametitle}
+  \begin{beamercolorbox}[ht=0.3cm]{frametitle}
 		\insertframetitle
 	\end{beamercolorbox}
 }
 
+\let\OLDitemize\itemize
+\renewcommand\itemize{\OLDitemize\addtolength{\itemsep}{7pt}}
 \setbeamertemplate{itemize items}[circle]
-\setbeamercolor{itemize item}{fg=RedOrange}
-\setbeamercolor{itemize subitem}{fg=RedOrange}
-\setbeamercolor{itemize subsubitem}{fg=RedOrange}
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+\setbeamercolor{itemize subsubitem}{fg=black}
 
 \setbeamertemplate{itemize subitem}[square]
 \setbeamertemplate{itemize subsubitem}[ball]
@@ -136,8 +142,12 @@ commentstyle=\it\color[RGB]{0,96,96},
 
 \defbeamertemplate*{title page}{gd}[1][]
 { 
-   \vskip2.0cm%      
-   \usebeamercolor{white text}
+   \vskip0.5cm%      
+    \begin{beamercolorbox}[wd=24cm,leftskip=12cm,#1]{author}
+      \small\insertauthor%
+    \end{beamercolorbox}
+    \vskip1.2cm%      
+   \usebeamercolor{white text}   
     \hskip1.5cm
     \begin{beamercolorbox}[wd=10cm,sep=1pt,right,#1]{title page header}
       % \begin{flushright}
@@ -145,9 +155,6 @@ commentstyle=\it\color[RGB]{0,96,96},
     % \end{flushright}
     \end{beamercolorbox}%    
     \vskip0.95cm%
-    % \begin{beamercolorbox}[wd=12cm,leftskip=3cm,#1]{author}
-    %   \usebeamerfont{author}\insertauthor%
-    % \end{beamercolorbox}
     %  \vskip0.2cm%
     % \begin{beamercolorbox}[wd=12cm,leftskip=3cm,#1]{date}
     %   \usebeamerfont{author}\insertdate%
