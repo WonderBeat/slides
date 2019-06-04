@@ -31,10 +31,10 @@
 \usepackage{themes/gd/beamerouterthemegd}
 \usepackage{themes/gd/beamercolorthemegd}
 
-\setbeameroption{hide notes} % Only slides
+% \setbeameroption{hide notes} % Only slides
 
 %\setbeameroption{show only notes} % Only notes
-% \setbeameroption{show notes on second screen=right}
+\setbeameroption{show notes on second screen=right}
 \setbeamertemplate{note page}{\large\pagecolor{green!5}\vfill\insertnote\vfill}
 
 \graphicspath{
@@ -115,11 +115,15 @@
 			\end{column}
 		\end{columns}   
 		\note{
-			Но вернемся к нашему приветствию
+			Но вернемся к нашему приветствию\\			
 		}
 	\end{gdblank}
 	\begin{gdblank}
 		\centering\includegraphics[width=0.8\textwidth]{streaming} 
+		\note{
+			Последние несколько лет я занимаюсь Стриминг Биг дата решениями\\
+			Схематически наши системы можно представить как-то так
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\centering\includegraphics[width=0.9\textwidth]{streaming-details} 
@@ -129,6 +133,10 @@
 	% \end{gdblank}
 	\begin{gdblank}
 		\centering\includegraphics[width=0.7\textwidth]{tech-all} 
+		\note{
+			И наш стек плюс-минус состоит из этих технологий\\
+			Так что если у вас есть желание поговорить о них, я готов с радостью это сделать после выступления
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Big Data School}
@@ -140,7 +148,8 @@
 		}		
 		\note{
 			Так же у нас есть биг дата школа\\
-			в которой я являюсь профессором
+			в которой я являюсь профессором\\
+			И может показаться что лекция от профессора должна быть
 		}
 	\end{gdblank}
 	\begin{gdblank}	
@@ -299,6 +308,11 @@
 				\includegraphics[width=0.7\textwidth]{daylightsaving}
 			\end{column}
 		\end{columns}
+		\note{
+			Верите ли вы\\
+			Правда ли\\
+			Солгласны ли вы с тем
+		}
 	\end{gdblank} 
 	
 	\begin{gdblank}
@@ -316,7 +330,7 @@
 				\includegraphics[width=0.9\textwidth]{leapsecond}
 			\end{column}
 		\end{columns}
-		\note{
+		\note{			
 			Поскольку вращение Земли постепенно замедляется, разница между средними солнечными сутками и сутками в системе СИ (составляющими ровно 24 часа) в среднем растёт
 		}
 	\end{gdblank}
@@ -364,13 +378,18 @@
 				\includegraphics[width=0.7\textwidth]{british}
 			\end{column}
 		\end{columns}
+		\note{
+			Верите ли вы\\
+			Правда ли\\
+			Солгласны ли вы с тем
+		}
 	\end{gdblank} 
 	\begin{gdblank}
 		\frametitle{Everyone's do it wrong!?}
 		\centering{\fontsize{140pt}{150pt}\selectfont\bf ?}
 		\note{
-			Вот так вот не просто. И под час меня одолевает мысль что мало кто беспокоится о правильной работе со временем. \\
-			Особенно после вот таких ситуаций из жизни. Сейчас расскажу
+			Вот так вот не просто. И под час меня одолевает мысль что мало кто уделяет внимание деталям работы со временем. \\
+			И в жизни у меня случались ситуации которые это доказывают. Сейчас расскажу на примере
 		}
 	\end{gdblank}   
 	\begin{gdblank}
@@ -384,12 +403,14 @@
 			\end{column}
 		\end{columns}	
 		\note{
-			Однажды Боевой кластер в зависшем состоянии\\
+			У нас завис кластер. Много машин, разом\\
+			Мы такие: воу, воу, это точно не мы накосячили\\
+			И удивительно что в тот раз это были не мы			
 			Мы начали проверять логи, мониторинг..\\
 		}			
 	\end{gdblank}  
 	\begin{gdblank}		
-		\centering\includegraphics[width=0.9\textwidth]{kernel-time-bug}
+		\centering\includegraphics[width=0.8\textwidth]{kernel-time-bug}
 	\end{gdblank}  
 	\begin{gdblank}		
 		\frametitle{Java Code}
@@ -401,13 +422,13 @@
 	\begin{gdblank}
 		\frametitle{Distributed environment}
 		\centering
-		\includegraphics[width=0.9\textwidth]{2-problems}
+		\includegraphics[width=0.7\textwidth]{2-problems}
 		\note{
 			В итоге что имеем, даже серьезные, крупные проекты допускают ошибки в этой области\\
 			Но все становится еще хуже когда мы начинаем работать с распределенными системами\\
 			А в них у нас есть 2 основные проблемы
 			\par
-			как обеспечить доставку сообщения один и только один раз [Задача двух генералов]
+			как обеспечить доставку сообщения один и только один раз 
 			\par
 			а так же как обеспечить порядок обработки сообщений, гарантировать его			
 		}
@@ -418,7 +439,7 @@
 		\note{
 			И вот если с гарантией доставки время нам помочь не может\\
 			то с последовательностью событий которые прилетают к нам в распределенную систему\\
-			кажется что что-то можно придумать... применив таймстемпы
+			кажется что что-то можно придумать... у нас ведь есть часы
 		}
 	\end{gdblank}   
 	\begin{gdblank}
@@ -427,7 +448,7 @@
 				\includegraphics[width=0.9\textwidth]{cassandrawrite}
 			\end{column}
 			\begin{column}{0.4\textwidth}
-				\includegraphics[width=0.9\textwidth]{cassandra}
+				\includegraphics[width=0.8\textwidth]{cassandra}
 				\centering
 				\begin{itemize}
 					\item Peer to Peer Database
@@ -437,9 +458,9 @@
 		\end{columns}
 		\note{
 			Ну вот смотрите, к прмеру, у нас есть кассандра\\
-			ужасно сложно судить о последовательности событий в этой базе данных\\
-			Представьте что каждая нода ведет свою личную историю событий.\\
-			Это не распределенная база данных, это Хаос
+			Клиенты могут общаться с каждым компонентом этой системы\\
+			Он подключается и работает с базой. С базой как единым целым\\
+			И клиентов может быть много, но даже в таком случае база должна сохранить консистентное/целостное состояние\\
 		}
 	\end{gdblank}   
 	\begin{gdblank}
@@ -447,13 +468,14 @@
 		\centering
 		\includegraphics[scale=0.22]{order}
 		\\Needed to establish the order of events that have occurred in the system or when they will occur in the future
+		\note{		
+			\begin{itemize}
+				\item И под консистенцией мы обычно подразумеваем набор правил
+				\item Эти правила обычно позволяют тем или иным способом упорядочить историю событий в распределенной системе
+				\item И в результате, если мы добавим правил
+			\end{itemize}
+		}
 	\end{gdblank}
-	\note{		
-		А хочется чтобы база работала как единое целое\\
-		Как бы нам упорядочить этот хаос?\\ Добавить хотябы каких-нибудь правил, ввести синхронизацию\\
-		Навести порядок\\
-		Сделать так чтобы история событий в системе была общей, целостной
-	}
 	\begin{gdblank}
 		\frametitle{Order in Chaos}
 		\LARGE
@@ -461,21 +483,26 @@
 			\item Maintain consistency
 			\item Build reliable systems
 			\item Debug [Resumption of execution]
-			\item Mutual exclusions
+			\item Build Consensus Algorithms
 		\end{itemize}
 		\note{
 			Вот если бы все события приходящие в систему мы бы могли расположить последовательно во времени
 			\par 
 			\begin{itemize}
 				\item поддерживать целостность данных
-				\item строить надежные системы которые могут предоставлять гарантии по процессу обработки
-				\item реализовывать такие вещи как взаимные блокировки
+				\item строить предсказуемые системы которые могут предоставлять гарантии по процессу обработки
+				\item для решения задачи консенсуса
 			\end{itemize}
+			Ну что, попробуем!?
 		}
 	\end{gdblank}
 	\begin{gdblank}
 		\centering\LARGE
 		Let's try Common Clock [Wall Clock]!
+		\note{
+			Начнем с самого простого, казалось бы, решения\\
+			Будем использовать обычные часы которые есть у нас на каждой машине. Если мы работаем в рамках одного сервера
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Common Clock}
@@ -495,15 +522,18 @@
 	\begin{gdblank}
 		\centering\LARGE
 		But there's {\bf no Common Clock} in distributed systems!
-	\end{gdblank}
-	\begin{gdblank}
-		\frametitle{Distributed Systems}
-		\LARGE
-		Synchronization in distributed systems is \bf hard
-		\begin{itemize}
-			\item No shared memory
-			\item No common clock
-		\end{itemize}
+		\begin{center}
+			\begin{minipage}{0.5\textwidth}
+				\begin{itemize}
+					\item No shared memory
+					\item No common clock
+				\end{itemize}
+			\end{minipage}
+		\end{center}
+		\note{
+			Общей разделяемой памяти и нету общих часов в отличии от ситуации когда мы работаем в рамках одного сервера\\
+			Стоп Стоп скажете вы. Там же были алгоритмы и протоколы для решения этой проблемы
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Wall Clock}		
@@ -512,33 +542,35 @@
 		Let's use 'Wall Clocks' and ... NTP!?
 		\par
 		\includegraphics[scale=0.20]{clock}
-		\small
-		\\When kept under tension the quartz crystal oscillates at a well-defined frequency
+		% \small
+		% \\When kept under tension the quartz crystal oscillates at a well-defined frequency
 		\note{
-			Но все же давайте попробуем. Попробуем обычные часы и их синхронизацию
-			С настенными часами у нас есть 2 основные проблемы, c которыми придется бороться Drift \& Skew\\
-			СНОС и СКОС
+			\begin{itemize}
+				\item Да, давайте попробуем. Попробуем обычные часы и их синхронизацию
+				\item А синхронизация у нас борется с 2мя основными проблемами, Drift \& Skew
+				\item СНОС и СКОС
+			\end{itemize}
 		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Clock Drift}
-		\begin{columns}
-			\begin{column}{0.6\textwidth}
-				\centering
-				We can't have perfect clocks
-				\includegraphics[width=0.9\textwidth]{clockdrift}
-			\end{column}
-			\begin{column}{0.4\textwidth}
-				\centering
-				Ordinary clocks drift by about 1 sec in 10 days
-			\end{column}
-		\end{columns}
+		\centering
+		\includegraphics[height=0.7\textheight]{clockdrift}
+		\par\large
+		Ordinary clocks drift by about 1 sec in 10 days	
+		\note{
+			We can't have perfect clocks
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Clock Skew}
 		\centering
 		\includegraphics[scale=0.2]{skew}
-		\\Skew: the difference between the times on two clocks (at any instant)
+		\par\large
+		Skew: the difference between the times on two clocks (at any instant)
+		\note{
+			К примеру у нас есть кластер серверов. И в нем всегда будут расхождения в показании во времени между серверами. Это снос. С ним тоже нужно бороться
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{I'm running NTP. I'm good}
@@ -547,10 +579,13 @@
 		The challenge with this approach is that there is a delay in the transmission from the time server to the client receiving the time update
 		\\This \textbf{delay is not constant for all requests}. Some request may be faster and others slower
 		\note{
-			И казалось бы для этого у нас есть протоколы. такие как NTP.\\
-			Протоколы, призванные синхронизировать время на машинах в сети.\\
-			Однако, все эти протоколы не идеальны. Они основаны на замерении задержек между сервером времени и машиной на которой нужно настроить время\\
-			Да ну, скажете вы. Нам и такого хватит
+			\begin{itemize}
+				\item И казалось бы для этого у нас есть протоколы. такие как NTP
+				\item Протоколы, призванные синхронизировать время на машинах в сети
+				\item И они не плохо справляются
+				\item Однако, все эти протоколы не идеальны. Они основаны на замерении задержек между сервером времени и машиной на которой нужно настроить время
+				\item Да ну, скажете вы. Нам и такого хватит
+			\end{itemize}					
 		}
 	\end{gdblank}
 	\begin{gdblank}
@@ -558,15 +593,20 @@
 		\centering													   
 		\LARGE
 		\alt<2>{1 / 600000 = 0.0000016 ... microsecond?}{{\bf 600000} events per second} 
+		\note{
+			Допустим они приходят равномерно в течении секунды
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{I'm running NTP. I'm good}
 		\centering
 		\includegraphics[scale=0.4]{accuracy}
-		\\\tiny
+		\par\small		
 		* Choosing the correct Time Synchronization Protocol and incorporating the 1756-TIME module into your Application \\ By: Josh Matson
 		\note{
-			Нам придется использовать сложные алгоритмы, а еще и пристально следить за нашими системами стобы СКОС не появился и все не развалилось
+			Нам уже не подходит NTP, да и PTP в реальности не всегда сможет помочь\\
+			И я думаю вы уже поняли к чему я клоню.\\
+			У них у всех есть один общий недостаток
 		}
 	\end{gdblank}
 	\begin{gdblank}
@@ -588,6 +628,10 @@
 			\item Sophisticated algorithms or special hardware
 			\item Monitoring
 		\end{itemize}
+		\note{
+			Нам придется использовать сложные алгоритмы, а еще и пристально следить за нашими системами стобы СКОС не появился и все не развалилось\\
+			А что если не использовать настенные часы?						
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Leslie Lamport}
@@ -607,9 +651,12 @@
 			\item Happens Before
 		\end{itemize}		
 		\note{
-			Одна из основных идей\\
-			не нужно синхронизировать часы идеально\\
-			процессам не обязательно договариваться о времени чтобы расставить события во времени
+			{\bf основные идеи}
+			\begin{itemize}
+				\item не нужно синхронизировать часы идеально. даже без точной синхронизации
+				\item процессам не обязательно договариваться о точном времени чтобы договориться об общей истории событий
+				\item задает отношение happens before. Отношение, которое лежит в основе так называемых часов Лэмпорта
+			\end{itemize}				
 		}
 	\end{gdblank}
 	\begin{gdblank}
@@ -624,8 +671,9 @@
 		If $a\rightarrow b$ happens between \textbf{two process}, and events $x$ and $y$ occur on another set of processes and these two sets of processes don’t exchange messages then:\\
 		we cannot say whether $x\rightarrow y$ or $y\rightarrow x$ from the perspective of the first set of processes
 		\note{
-			если событие а это "послыкка сообщения" а любому процессу, а b это событие когда это сообщение было получено
-			outcome
+			если событие а это "послыкка сообщения" а любому процессу, а b это событие когда это сообщение было получено\\
+			outcome\\
+			Этого достаточно чтобы создать логические часы. Часы Лэмпорта
 		}
 	\end{gdblank}
 	\begin{gdblank}
@@ -634,6 +682,9 @@
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Example}
+		\note{
+		транзакции
+		}
 		\begin{columns}
 			\begin{column}{0.5\textwidth}
 				\includegraphics[height=0.85\textheight]{lamport_clocks_dia}			
@@ -652,15 +703,16 @@
 				\end{itemize}
 			\end{column}	
 		\end{columns}
-	\end{gdblank}
-	\note{
-		транзакции
-	}
+	\end{gdblank}	
 	\begin{gdblank}
 		\frametitle{Lamport Clocks Limitations}
 		\centering
 		\LARGE
 		With Lamport’s clocks nothing can be said about \textbf{the actual time} of a and b.
+		\note{
+			При использовании часов Лемпорта мы ничего не можем сказать о реальном времени, когда происходили события\\
+			Эти часы оторваны от реального времени
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Causality} 
@@ -668,6 +720,7 @@
 		\centering\\Causal relations\\An example of a causal relation and its representation in a graph. 
 		\tiny \\Credits: C. Giarmatzi
 	\end{gdblank}   
+
 	\begin{gdblank}
 		\frametitle{Who did when?}
 		\begin{columns}
@@ -696,6 +749,10 @@
 		Vector Clocks
 		\par\large
 		by Colin Fidge and Friedemann Mattern in 1988
+		\note{
+			Усложненные часы Лэмпорта, которые должны решать их проблемы\\
+			Посмотрим внимательнее
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Vector Clocks}
@@ -706,6 +763,13 @@
 			\item A vector clock $VC(a)$ is assigned to an event $a$
 			\item If $VC(a)<VC(b)$ for events $a$ and $b$, then event $a$ is known to causally precede $b$
 		\end{itemize}
+		\note{
+			\begin{itemize}
+				\item Векторные часы системы из N процессов состоят из массива размером N логических часов
+				\item каждому событию присваивается такой массив часов
+				\item если все логичестие часы одного вектора/массива меньше
+			\end{itemize}
+		}
 	\end{gdblank}
 	\begin{gdblank}
 		\frametitle{Robbery}
@@ -714,8 +778,9 @@
 				\includegraphics[width=0.9\textwidth]{robbery}			
 			\end{column}
 			\begin{column}{0.5\textwidth}
+				\large\centering
 				Alice, Ben, Cathy, and Dave want to rob a bank
-				\par\large
+				\par
 				\begin{itemize}
 					\item They could send P2P messages
 					\item No leader
@@ -880,6 +945,9 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 		\centering
 		\LARGE 
 		So... What Did We Get Out Of All of This?
+		\note{
+			Мы посмотрели несколько вариантов решения проблемы определения порядка событий в распределённой системе
+		}
 	\end{gdblank}	
 	% \begin{gdblank}
 	% 	\frametitle{The WHY of things}
@@ -910,8 +978,10 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 			      	\item slow and grow
 			      \end{itemize}
 		\end{itemize}
-		\note{
-			
+		\note{			
+			И все эти решения вы сможете найти под капотом современных распределенных систем\\
+			Некоторые используют настенные часы, а другие доверяют только логическим\\
+			Дело в том
 		}
 	\end{gdblank} 
 	\begin{gdblank}
@@ -919,14 +989,16 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 		\includegraphics[height=0.7\textheight]{errors}
 		\par
 		Think ahead! Think advance!
-	
 		\note{
-			Нет плохих решений, нет хороших. Есть точно подходящие и не подходящие\\
-			На каждой системе вы столкнетесь с этой проблемой.  Вы должны понимать задачу и требования. Если об этом не позаботится, то придется потом лепить костили или все переписывать\\
+			\begin{itemize}
+				\item Нет плохих решений, нет хороших. Есть решения подходящие и не подходящие
+				\item Если вы строите распределенные системы вы тоже столкнетесь с проблемами синхронизации
+				\item Даже если это сайт за лоад балансером
+				\item И если вы не уделите ей внимание, то придется потом лепить костили и в худшем случае
+			\end{itemize}				
 			И вот здесь вот я хотел бы взять паузу\\
 			Паузу, ведь мы проделали довольно большой путь, много чего разобрали\\
-			Однако, \\
-			Но дальше, там осталось еще очень много чего интересного. На еще одну презентацию, к примеру
+			Однако, там осталось еще очень много чего интересного. На еще одну презентацию, к примеру
 		}
 	\end{gdblank}
 	\begin{gdblank}
@@ -941,6 +1013,7 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 			\item Why there was no 30 December 2011 in Samoa?
 		\end{itemize}
 		\note{
+			А так же остались не затронутыми такие увлекательные вопросы как\\
 			Ну а текущая моя презентация подходит к концу
 		}
 	\end{gdblank} 
