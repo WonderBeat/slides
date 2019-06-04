@@ -10,12 +10,12 @@
 \usepackage{listings}
 \usepackage{cprotect}
 \usepackage{pgfpages}
+% картинка сверху, Выравнивание  31 меньше, 33 мелкий шрифт, буллеты черные, резкий слайд, 73 удалить
 
 \usepackage[makeroom]{cancel}
 
 \usefonttheme{serif}
 \usefonttheme{professionalfonts}
-
 
 \usepackage[default,sfdefault,scaled=1.1]{sourcesanspro}
 
@@ -31,10 +31,10 @@
 \usepackage{themes/gd/beamerouterthemegd}
 \usepackage{themes/gd/beamercolorthemegd}
 
-% \setbeameroption{hide notes} % Only slides
+\setbeameroption{hide notes} % Only slides
 
 %\setbeameroption{show only notes} % Only notes
-\setbeameroption{show notes on second screen=right}
+% \setbeameroption{show notes on second screen=right}
 \setbeamertemplate{note page}{\large\pagecolor{green!5}\vfill\insertnote\vfill}
 
 \graphicspath{
@@ -43,16 +43,23 @@
 }
 
 \setlength{\parskip}{1em}
-\setbeamertemplate{footline}{%
-   \raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
+
+
+\setbeamertemplate{footline}
+{
+	\tikz[overlay]{\node at(15.7,-0.15){\thepage};}
+}
 
 \title{Time In Distributed Systems\\Pt.1}
+\author{Denis Golovachev}
 
 \begin{document}   
-	\begin{titlePage} 
+	\addtolength{\textheight}{-12pt}
+	% \addtolength{\headheight}{-15pt}
+	% \addtolength{\footskip}{15pt}
+	\begin{titlePage}
 		\titlepage        
-	\end{titlePage}
-		
+	\end{titlePage}		
 	\begin{gdblank}
 		\frametitle{Hello}
 		\centering\includegraphics[scale=2.3]{denis}
@@ -136,7 +143,7 @@
 			в которой я являюсь профессором
 		}
 	\end{gdblank}
-	\begin{gdblank}
+	\begin{gdblank}	
 		\centering{\fontsize{100pt}{120pt}\selectfont\bf Boring}
 	\end{gdblank}   
 	\note{
@@ -324,12 +331,16 @@
 			\end{column}
 			\begin{column}{0.3\textwidth}
 				\large\centering 
-				\begin{itemize}
-					\item Fiscal year
-					\item Chinese Year
-				\end{itemize}
-				\vskip0.5cm
 				\includegraphics[width=0.7\textwidth]{china}
+				\par
+				\begin{center}
+					\begin{minipage}{0.8\textwidth}
+						\begin{itemize}
+							\item Fiscal year
+							\item Chinese Year
+						\end{itemize}
+					\end{minipage}
+				\end{center}						
 			\end{column}
 		\end{columns}
 		\note{
@@ -422,7 +433,6 @@
 					\item Peer to Peer Database
 					\item Masterless Architecture
 				\end{itemize}
-				\tiny its difficult to reason about events in this system
 			\end{column}
 		\end{columns}
 		\note{
@@ -934,29 +944,29 @@ vclock = Alice:1, Ben:1, Cathy:1, Dave:2
 			Ну а текущая моя презентация подходит к концу
 		}
 	\end{gdblank} 
-	\begin{gdblank}
-		\frametitle{Thank you! That was Algebraic! Questions?}
-		\begin{columns}			
-			\begin{column}{0.5\textwidth}
-				\begin{center}
-				\begin{minipage}{.7\textwidth}		
-				\LARGE
-				\begin{itemize}
-					\item Thank
-					\item You 
-					\item For
-					\item Your
-					\item Time
-				\end{itemize}
-				% Hope your software will never run on a space ship that is orbiting a black hole				
-			\end{minipage}
-		\end{center}
-			\end{column}
-			\begin{column}{0.5\textwidth}				
-				\includegraphics[width=0.9\textwidth]{thankyou-at}			
-			\end{column}	
-		\end{columns} 		
-	\end{gdblank} 	
+	% \begin{gdblank}
+	% 	\frametitle{Thank you! That was Algebraic! Questions?}
+	% 	\begin{columns}			
+	% 		\begin{column}{0.5\textwidth}
+	% 			\begin{center}
+	% 			\begin{minipage}{.7\textwidth}		
+	% 			\LARGE
+	% 			\begin{itemize}
+	% 				\item Thank
+	% 				\item You 
+	% 				\item For
+	% 				\item Your
+	% 				\item Time
+	% 			\end{itemize}
+	% 			% Hope your software will never run on a space ship that is orbiting a black hole				
+	% 		\end{minipage}
+	% 	\end{center}
+	% 		\end{column}
+	% 		\begin{column}{0.5\textwidth}				
+	% 			\includegraphics[width=0.9\textwidth]{thankyou-at}			
+	% 		\end{column}	
+	% 	\end{columns} 		
+	% \end{gdblank} 	
 	\begin{gdthankyou}	
 	\end{gdthankyou}
 \end{document}
