@@ -1,4 +1,5 @@
 \setbeamertemplate{navigation symbols}{}
+\documentclass[aspectratio=169, 15pt,usenames,dvipsnames]{beamer}
 % My name is Denis
 % I work here
 % And live here
@@ -6,6 +7,1058 @@
 % And have a passion for this
 % So basically I do this for them
 
+
+\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+\usepackage{sansmathfonts}
+\usepackage{xcolor}
+\usepackage{fontenc}
+\usepackage{unicode-math}
+\usepackage{listings}
+\usepackage{cprotect}
+\usepackage{pgfpages}
+% картинка сверху, Выравнивание  31 меньше, 33 мелкий шрифт, буллеты черные, резкий слайд, 73 удалить
+
+\usepackage[makeroom]{cancel}
+
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+
+\usepackage[default,sfdefault,scaled=1.1]{sourcesanspro}
+
+\usepackage{sourcecodepro}
+\usepackage{graphicx}
+
+\graphicspath{
+    {themes/gd/images/},
+    {images/}
+}
+\usepackage{themes/gd/beamerthemegd}
+\usepackage{themes/gd/beamerinnerthemegd}
+\usepackage{themes/gd/beamerouterthemegd}
+\usepackage{themes/gd/beamercolorthemegd}
+
+% \setbeameroption{hide notes} % Only slides
+
+%\setbeameroption{show only notes} % Only notes
+\setbeameroption{show notes on second screen=right}
+\setbeamertemplate{note page}{\large\pagecolor{green!5}\vfill\insertnote\vfill}
+
+\graphicspath{
+    {themes/gd/images/},
+    {images/}
+}
+
+\setlength{\parskip}{1em}
+
+
+\setbeamertemplate{footline}
+{
+	\tikz[overlay]{\node at(15.7,-0.15){\thepage};}
+}
+
+\title{Time In Distributed Systems\\Pt.1}
+\author{Denis Golovachev}
+
+\begin{document}   
+	\addtolength{\textheight}{-12pt}
+	% \addtolength{\headheight}{-15pt}
+	% \addtolength{\footskip}{15pt}
+	\begin{titlePage}
+		\titlepage        
+	\end{titlePage}		
+	\begin{gdblank}
+		\frametitle{Hello}
+		\centering\includegraphics[scale=2.3]{denis}
+		\par\LARGE
+		Denis Golovachev
+	\end{gdblank} 
+	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{denis}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=\textwidth]{gdlogo}
+			\end{column}
+		\end{columns}   		
+	\end{gdblank}
+	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{bigdata}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=\textwidth]{garchitect}
+				\par\LARGE
+				Software Architect
+			\end{column}
+		\end{columns}   		
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\includegraphics[scale=0.6]{spb}
+		\par\LARGE
+		Saint-Petersburg
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\includegraphics[height=0.9\textheight]{buzzwords}
+	\end{gdblank}	
+	\begin{gdblank}
+		\LARGE\centering
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}
+					\item Common Clock
+					\item Causality
+					\item Fiscal year
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}					
+					\item Drift and Skew
+					\item Peer to Peer
+					\item Exactly-once delivery
+				\end{itemize}
+			\end{column}
+		\end{columns}   
+		\note{
+			Но вернемся к нашему приветствию\\			
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\includegraphics[width=0.8\textwidth]{streaming} 
+		\note{
+			Последние несколько лет я занимаюсь Стриминг Биг дата решениями\\
+			Схематически наши системы можно представить как-то так
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\includegraphics[width=0.9\textwidth]{streaming-details} 
+	\end{gdblank}
+	% \begin{gdblank}
+	% 	\centering\includegraphics[width=0.7\textwidth]{tech-part} 
+	% \end{gdblank}
+	\begin{gdblank}
+		\centering\includegraphics[width=0.7\textwidth]{tech-all} 
+		\note{
+			И наш стек плюс-минус состоит из этих технологий\\
+			Так что если у вас есть желание поговорить о них, я готов с радостью это сделать после выступления
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Big Data School}
+		\centering\includegraphics[scale=0.6]{school}
+		\par\LARGE
+		\pause
+		\textbf{
+			Professor
+		}		
+		\note{
+			Так же у нас есть биг дата школа\\
+			в которой я являюсь профессором\\
+			И может показаться что лекция от профессора должна быть
+		}
+	\end{gdblank}
+	\begin{gdblank}	
+		\centering{\fontsize{100pt}{120pt}\selectfont\bf Boring}
+	\end{gdblank}   
+	\note{
+		Но я попробую вас в этом разубедить
+	}
+	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.7]{bigdata}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.8\textwidth]{gdlogo}
+			\end{column}
+		\end{columns}   
+		\note{
+			Ну что же, поехали. биг дата, грид динамикс, время!
+		}     
+	\end{gdblank}
+	% \begin{gdblank}
+	% 	\centering\includegraphics[scale=0.8]{love-job} 
+	% \end{gdblank}
+	\begin{gdblank}
+		\frametitle{Time} 
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.7\textwidth]{adventuretime} 
+			\end{column}
+			\pause 
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.3]{time2} 
+			\end{column}
+		\end{columns}   
+		\note{
+			И сразу хочу сказать что время, тема обширная и мы можем говорить о ней в том или другом контексте\\
+			поэтому сразу давайте сузим область. Сегодня мы будем говорить о			
+		}         
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Time}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{ordinary-clockface} 
+			\end{column}
+			\pause 
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[scale=0.5]{strarum} 
+			\end{column}
+		\end{columns}            
+		\note{
+
+			А о часах, календарях, таймерах и о том как мы измеряем время, особенно
+			в распределенных системах
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Question}
+		\centering\Huge What is time?     
+		\note{
+			Начнем с вопроса\\
+			что такое время?
+			К примеру я бы мог ответить 
+		}      
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Time is ...}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.8\textwidth]{halflife} 
+				\\Way of arrange the order of events 
+			\end{column}
+			\pause 
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.8\textwidth]{einsteinspacetime} 
+				\\Another dimension
+			\end{column}
+		\end{columns} 
+		\note{
+			К примеру я бы мог ответить что это способ упорядочить события\\
+			Или же, более образованые люди могут вспомнить теорию\\
+			пространства-времени Ньютона
+		}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Definition of time}
+		\LARGE Compact and robust definition of time has proved to be remarkably tricky and elusive.
+		\large
+		\vskip1cm
+		\begin{itemize}
+			\item What clocks measure (attr. to physicists Albert Einstein, Donald Ivey, and others)
+			\item What prevents everything from happening at once (physicist John Wheeler and others)
+			\item A linear continuum of instants (philosopher Adolf Grünbaum)
+		\end{itemize}
+		\note{
+			Но чем дольше я искал, тем больше понимал что\\
+			Однако, полное и целостное определение вермени до сих пор нерешенная задача \\
+			Многие светлые умы пытались. Физики, Философы, но до сих пор нет определения которое всем подходит
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Religion}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{pray} 
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{block}{Wikipedia}
+					In Zurvanism, Zurvan was perceived as the god of infinite time and space and was aka ("one", "alone").
+				\end{block} 
+			\end{column}
+		\end{columns}    
+		\note{
+			В поисках интересных определений времени мне даже удалось наткнуться на реально существующую религию в которой Бесконечное Время представляется богом.
+			Сильно, не правда ли
+		} 
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Time is ...}
+		\LARGE\centering Time is something we deal with every day, and something that everyone thinks they 
+		\bf understand
+		\note{
+			Получается довольно забавно. Мы не знаем точно что такое время, однако работаем с ним каждый день.\\
+			И чем больше мы с ним работаем тем нам больше кажется что мы его понимаем.\\
+			Но это не так			
+		}
+	\end{gdblank} 
+	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{adventure} 
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\Huge\centering Game time! 
+			\end{column}
+		\end{columns}     		
+		\note{		
+			И чтобы в этом еще раз убедиться, давайте попробуем пройти небольшую викторину\\
+			Викторину о времени\\
+			Сейчас будет несколько вопросов и если вам кажется что вы знаете ответ...
+		}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Round 1}    
+		\begin{columns}
+			\begin{column}{0.70\textwidth}
+				\centering
+				\LARGE There are always\\
+				24 hours in a day 
+				\pause     
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\large\centering Daylight saving time 
+				\vskip0.5cm
+				\includegraphics[width=0.7\textwidth]{daylightsaving}
+			\end{column}
+		\end{columns}
+		\note{
+			Верите ли вы\\
+			Правда ли\\
+			Солгласны ли вы с тем
+		}
+	\end{gdblank} 
+	
+	\begin{gdblank}
+		\begin{columns}
+			\frametitle{Round 2}    
+			\begin{column}{0.70\textwidth}
+				\centering
+				\LARGE Minute could be longer than\\
+				60 seconds
+				\pause     
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\large\centering Leap Second
+				\vskip0.5cm
+				\includegraphics[width=0.9\textwidth]{leapsecond}
+			\end{column}
+		\end{columns}
+		\note{			
+			Поскольку вращение Земли постепенно замедляется, разница между средними солнечными сутками и сутками в системе СИ (составляющими ровно 24 часа) в среднем растёт
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Round 3}    
+		\begin{columns}
+			\begin{column}{0.70\textwidth}
+				\centering
+				\LARGE A month not always\\
+				ends in the same year it started
+				\pause     
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\large\centering 
+				\includegraphics[width=0.7\textwidth]{china}
+				\par
+				\begin{center}
+					\begin{minipage}{0.8\textwidth}
+						\begin{itemize}
+							\item Fiscal year
+							\item Chinese Year
+						\end{itemize}
+					\end{minipage}
+				\end{center}						
+			\end{column}
+		\end{columns}
+		\note{
+			Нет, тут все зависит от календаря и от самого понятия "год"\\
+			Фина́нсовый год, китайский новый год\\
+			Обычно финансовый год не совпадает с календарным. Например, в США финансовый год установлен с 1 октября по 30 сентября, в Японии — с 1 апреля по 31 марта\\						
+		}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Round 4}    
+		\begin{columns}
+			\begin{column}{0.70\textwidth}
+				\centering
+				\LARGE Month could have\\
+				less than 20 days
+				\pause     
+			\end{column}
+			\begin{column}{0.3\textwidth}
+				\large\centering  September 1752 had 19 days in British Empire
+				\vskip0.5cm
+				\includegraphics[width=0.7\textwidth]{british}
+			\end{column}
+		\end{columns}
+		\note{
+			Верите ли вы\\
+			Правда ли\\
+			Солгласны ли вы с тем
+		}
+	\end{gdblank} 
+	\begin{gdblank}
+		\frametitle{Everyone's do it wrong!?}
+		\centering{\fontsize{140pt}{150pt}\selectfont\bf ?}
+		\note{
+			Вот так вот не просто. И под час меня одолевает мысль что мало кто уделяет внимание деталям работы со временем. \\
+			И в жизни у меня случались ситуации которые это доказывают. Сейчас расскажу на примере
+		}
+	\end{gdblank}   
+	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{aliens}				
+			\end{column}
+			\pause
+			\begin{column}{0.5\textwidth}
+				\centering\includegraphics[width=0.9\textwidth]{cpu}
+			\end{column}
+		\end{columns}	
+		\note{
+			У нас завис кластер. Много машин, разом\\
+			Мы такие: воу, воу, это точно не мы накосячили\\
+			И удивительно что в тот раз это были не мы			
+			Мы начали проверять логи, мониторинг..\\
+		}			
+	\end{gdblank}  
+	\begin{gdblank}		
+		\centering\includegraphics[width=0.8\textwidth]{kernel-time-bug}
+	\end{gdblank}  
+	\begin{gdblank}		
+		\frametitle{Java Code}
+		\centering\includegraphics[width=\textwidth]{sleep}
+	\end{gdblank}   
+	\begin{gdblank}
+		\centering\includegraphics[height=0.9\textheight]{jvm-time-bug}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Distributed environment}
+		\centering
+		\includegraphics[width=0.7\textwidth]{2-problems}
+		\note{
+			В итоге что имеем, даже серьезные, крупные проекты допускают ошибки в этой области\\
+			Но все становится еще хуже когда мы начинаем работать с распределенными системами\\
+			А в них у нас есть 2 основные проблемы
+			\par
+			как обеспечить доставку сообщения один и только один раз 
+			\par
+			а так же как обеспечить порядок обработки сообщений, гарантировать его			
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Distributed System Topology}
+		\includegraphics[width=\textwidth]{networkb}
+		\note{
+			И вот если с гарантией доставки время нам помочь не может\\
+			то с последовательностью событий которые прилетают к нам в распределенную систему\\
+			кажется что что-то можно придумать... у нас ведь есть часы
+		}
+	\end{gdblank}   
+	\begin{gdblank}
+		\begin{columns}
+			\begin{column}{0.6\textwidth}
+				\includegraphics[width=0.9\textwidth]{cassandrawrite}
+			\end{column}
+			\begin{column}{0.4\textwidth}
+				\includegraphics[width=0.8\textwidth]{cassandra}
+				\centering
+				\begin{itemize}
+					\item Peer to Peer Database
+					\item Masterless Architecture
+				\end{itemize}
+			\end{column}
+		\end{columns}
+		\note{
+			Ну вот смотрите, к прмеру, у нас есть кассандра\\
+			Клиенты могут общаться с каждым компонентом этой системы\\
+			Он подключается и работает с базой. С базой как единым целым\\
+			И клиентов может быть много, но даже в таком случае база должна сохранить консистентное/целостное состояние\\
+		}
+	\end{gdblank}   
+	\begin{gdblank}
+		\frametitle{I am the Law and Order}
+		\centering
+		\includegraphics[scale=0.22]{order}
+		\\Needed to establish the order of events that have occurred in the system or when they will occur in the future
+		\note{		
+			\begin{itemize}
+				\item И под консистенцией мы обычно подразумеваем набор правил
+				\item Эти правила обычно позволяют тем или иным способом упорядочить историю событий в распределенной системе
+				\item И в результате, если мы добавим правил
+			\end{itemize}
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Order in Chaos}
+		\LARGE
+		\begin{itemize}
+			\item Maintain consistency
+			\item Build reliable systems
+			\item Debug [Resumption of execution]
+			\item Build Consensus Algorithms
+		\end{itemize}
+		\note{
+			Вот если бы все события приходящие в систему мы бы могли расположить последовательно во времени
+			\par 
+			\begin{itemize}
+				\item поддерживать целостность данных
+				\item строить предсказуемые системы которые могут предоставлять гарантии по процессу обработки
+				\item для решения задачи консенсуса
+			\end{itemize}
+			Ну что, попробуем!?
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\LARGE
+		Let's try Common Clock [Wall Clock]!
+		\note{
+			Начнем с самого простого, казалось бы, решения\\
+			Будем использовать обычные часы которые есть у нас на каждой машине. Если мы работаем в рамках одного сервера
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Common Clock}
+		\LARGE
+		We can reliably define
+		\begin{itemize}
+			\item simultaneous: all events that happen between clock ticks
+			\pause
+			\item before: an event that happens in a previous clock tick
+			\item after: an event that happens in a subsequent clock tick
+		\end{itemize}
+		\note{
+			Определить отношение\\
+			Сказать что одно было раньше другого или одно было после другого
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\LARGE
+		But there's {\bf no Common Clock} in distributed systems!
+		\begin{center}
+			\begin{minipage}{0.5\textwidth}
+				\begin{itemize}
+					\item No shared memory
+					\item No common clock
+				\end{itemize}
+			\end{minipage}
+		\end{center}
+		\note{
+			Общей разделяемой памяти и нету общих часов в отличии от ситуации когда мы работаем в рамках одного сервера\\
+			Стоп Стоп скажете вы. Там же были алгоритмы и протоколы для решения этой проблемы
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Wall Clock}		
+		\centering
+		\LARGE	
+		Let's use 'Wall Clocks' and ... NTP!?
+		\par
+		\includegraphics[scale=0.20]{clock}
+		% \small
+		% \\When kept under tension the quartz crystal oscillates at a well-defined frequency
+		\note{
+			\begin{itemize}
+				\item Да, давайте попробуем. Попробуем обычные часы и их синхронизацию
+				\item А синхронизация у нас борется с 2мя основными проблемами, Drift \& Skew
+				\item СНОС и СКОС
+			\end{itemize}
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Clock Drift}
+		\centering
+		\includegraphics[height=0.7\textheight]{clockdrift}
+		\par\large
+		Ordinary clocks drift by about 1 sec in 10 days	
+		\note{
+			We can't have perfect clocks
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Clock Skew}
+		\centering
+		\includegraphics[scale=0.2]{skew}
+		\par\large
+		Skew: the difference between the times on two clocks (at any instant)
+		\note{
+			К примеру у нас есть кластер серверов. И в нем всегда будут расхождения в показании во времени между серверами. Это снос. С ним тоже нужно бороться
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{I'm running NTP. I'm good}
+		\centering\includegraphics[scale=0.2]{ntp}
+		\par
+		The challenge with this approach is that there is a delay in the transmission from the time server to the client receiving the time update
+		\\This \textbf{delay is not constant for all requests}. Some request may be faster and others slower
+		\note{
+			\begin{itemize}
+				\item И казалось бы для этого у нас есть протоколы. такие как NTP
+				\item Протоколы, призванные синхронизировать время на машинах в сети
+				\item И они не плохо справляются
+				\item Однако, все эти протоколы не идеальны. Они основаны на замерении задержек между сервером времени и машиной на которой нужно настроить время
+				\item Да ну, скажете вы. Нам и такого хватит
+			\end{itemize}					
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{I'm running NTP. I'm good}
+		\centering													   
+		\LARGE
+		\alt<2>{1 / 600000 = 0.0000016 ... microsecond?}{{\bf 600000} events per second} 
+		\note{
+			Допустим они приходят равномерно в течении секунды
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{I'm running NTP. I'm good}
+		\centering
+		\includegraphics[scale=0.4]{accuracy}
+		\par\small		
+		* Choosing the correct Time Synchronization Protocol and incorporating the 1756-TIME module into your Application \\ By: Josh Matson
+		\note{
+			Нам уже не подходит NTP, да и PTP в реальности не всегда сможет помочь\\
+			И я думаю вы уже поняли к чему я клоню.\\
+			У них у всех есть один общий недостаток
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Boom!}
+		\centering
+		% \LARGE It's difficult! \par
+		\includegraphics[height=0.6\textheight]{photofinish}
+		\large \\
+		Correction of time does not mean that all machines agree on time, it just means they are much \textbf{closer to each other on average}
+		\note{
+			А все потому что алгоритмы не могут синхронизовать часы точно, сушествует лишь возможность уменьшить расхождение между часами на разных машинах
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Distributed Systems}
+		\LARGE
+		Wall clocks solutions require
+		\begin{itemize}
+			\item Sophisticated algorithms or special hardware
+			\item Monitoring
+		\end{itemize}
+		\note{
+			Нам придется использовать сложные алгоритмы, а еще и пристально следить за нашими системами стобы СКОС не появился и все не развалилось\\
+			А что если не использовать настенные часы?						
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Leslie Lamport}
+		\centering
+		\includegraphics[height=0.6\textheight]{lamport} \\
+		\large
+		Lamport, L. (1978). "Time, clocks, and the ordering of events in a distributed system"
+		\note{
+			"Время, часы и порядок событий в распределенной системе"
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\large
+		\begin{itemize}
+			\item The important contribution of Lamport is that in a distributed system, \textbf{clocks need not be synchronized absolutely}
+			\item It is \textbf{not important} that all \textbf{processes agree on what the actual time is, but that they agree on the order in which events occur}
+			\item Happens Before
+		\end{itemize}		
+		\note{
+			{\bf основные идеи}
+			\begin{itemize}
+				\item не нужно синхронизировать часы идеально. даже без точной синхронизации
+				\item процессам не обязательно договариваться о точном времени чтобы договориться об общей истории событий
+				\item задает отношение happens before. Отношение, которое лежит в основе так называемых часов Лэмпорта
+			\end{itemize}				
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Happens Before}
+		The relation $'\rightarrow'$ on the set of events of a system is a smallest relation satisfying three conditions
+		\begin{itemize}
+			\item If $a$, $b$ are events \textbf{in the same process}, and $a$ comes before $b$, then $a\rightarrow b$ 
+			\item If $a$ is the sending of a message by one process and $b$ is the receipt of the same message by another process, then $a\rightarrow b$
+			\item Transitive. If $a\rightarrow b$ and $b\rightarrow c$ then $a\rightarrow c$. Two distinct events $a$ and $b$ are said to be concurrent if $a\cancel{\rightarrow} b$ and $b\cancel{\rightarrow} a$
+		\end{itemize}				
+		\par
+		If $a\rightarrow b$ happens between \textbf{two process}, and events $x$ and $y$ occur on another set of processes and these two sets of processes don’t exchange messages then:\\
+		we cannot say whether $x\rightarrow y$ or $y\rightarrow x$ from the perspective of the first set of processes
+		\note{
+			если событие а это "послыкка сообщения" а любому процессу, а b это событие когда это сообщение было получено\\
+			outcome\\
+			Этого достаточно чтобы создать логические часы. Часы Лэмпорта
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\centering\LARGE
+		Lamport Clocks
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Example}
+		\note{
+		транзакции
+		}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[height=0.85\textheight]{lamport_clocks_dia}			
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{itemize}
+					\item When a message is transmitted from $P1 \rightarrow P2$, $P1$ will encode the send time into the message
+					      \pause
+					\item When $P2$ receives the message, it will record the time of receipt
+					      \pause
+					\item If the time at $P2$ is already greater than the send time, then no action is required for $P2$
+					      \pause
+					\item If $P2$ discovers that the time of receipt is before the send time, $P2$ will update its software clock to be one greater than the send time
+					      \pause
+					\item “happens-before” relationship is preserved with this actions
+				\end{itemize}
+			\end{column}	
+		\end{columns}
+	\end{gdblank}	
+	\begin{gdblank}
+		\frametitle{Lamport Clocks Limitations}
+		\centering
+		\LARGE
+		With Lamport’s clocks nothing can be said about \textbf{the actual time} of a and b.
+		\note{
+			При использовании часов Лемпорта мы ничего не можем сказать о реальном времени, когда происходили события\\
+			Эти часы оторваны от реального времени
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Causality} 
+		\includegraphics[scale=0.4]{causality}
+		\centering\\Causal relations\\An example of a causal relation and its representation in a graph. 
+		\tiny \\Credits: C. Giarmatzi
+	\end{gdblank}   
+
+	\begin{gdblank}
+		\frametitle{Who did when?}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[height=0.8\textheight]{lamport_clocks_dia}			
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\LARGE
+				\begin{center}									
+				\begin{minipage}{0.6\textwidth}
+					\begin{itemize}
+						\item $m1 \rightarrow m3$
+						\item $m2 \rightarrow m3$ 
+					\end{itemize}
+				\end{minipage}
+				\end{center}				
+				\large
+				Knowing $m1\rightarrow m3$ and $m2\rightarrow m3$ shows $m3$ did not cause $m1$ or $m2$ but we cannot say which initiated $m3$
+			\end{column}	
+		\end{columns}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Vector Clocks}
+		\centering
+		\LARGE
+		Vector Clocks
+		\par\large
+		by Colin Fidge and Friedemann Mattern in 1988
+		\note{
+			Усложненные часы Лэмпорта, которые должны решать их проблемы\\
+			Посмотрим внимательнее
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Vector Clocks}
+		\centering
+		\large
+		\begin{itemize}
+			\item A vector clock of a system of N processes is \textbf{an array/vector} of N logical clocks, \textbf{one clock per process}
+			\item A vector clock $VC(a)$ is assigned to an event $a$
+			\item If $VC(a)<VC(b)$ for events $a$ and $b$, then event $a$ is known to causally precede $b$
+		\end{itemize}
+		\note{
+			\begin{itemize}
+				\item Векторные часы системы из N процессов состоят из массива размером N логических часов
+				\item каждому событию присваивается такой массив часов
+				\item если все логичестие часы одного вектора/массива меньше
+			\end{itemize}
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{Robbery}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[width=0.9\textwidth]{robbery}			
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\large\centering
+				Alice, Ben, Cathy, and Dave want to rob a bank
+				\par
+				\begin{itemize}
+					\item They could send P2P messages
+					\item No leader
+				\end{itemize}
+			\end{column}	
+		\end{columns}
+	\end{gdblank}	
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector1}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			\begin{lstlisting}[language=Python]
+date = Wednesday
+vclock = Alice:1
+			\end{lstlisting}
+		\end{column}			
+	\end{columns} 
+	\note{
+		Среда
+	}
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector2}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Ben suggests Tuesday
+			\begin{lstlisting}[language=Python]
+date = Tuesday
+vclock = Alice:1, Ben:1
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\note{
+		Вторник
+	}
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector3}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Dave replies, confirming Tuesday
+			\begin{lstlisting}[language=Python]
+date = Tuesday
+vclock = Alice:1, Ben:1, Dave:1
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\note{
+		Вторник
+	}
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector4}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Then Cathy joins, suggesting Thursday
+			\begin{lstlisting}[language=Python]
+date = Thursday
+vclock = Alice:1, Cathy:1
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\note{
+		Четверг
+	}
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector4}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Dave has two conflicting objects
+			\begin{lstlisting}[language=Python]
+date = Tuesday
+vclock = Alice:1, Ben:1, Dave:1
+			\end{lstlisting}
+			and
+			\begin{lstlisting}[language=Python]
+date = Thursday
+vclock = Alice:1, Cathy:1
+			\end{lstlisting}
+		\end{column}			
+	\end{columns} 
+	\note{
+		Вторник и четверг
+	}
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector5}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Dave’s a reasonable guy, and chooses Thursday.\\So he sends this value back to Cathy
+			\begin{lstlisting}[language=Python]
+date = Thursday
+vclock = Alice:1, Ben:1, Cathy:1, Dave:2
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\note{
+		Четверг
+	}
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector6}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			When Alice asks Ben and Cathy for the latest decision, the replies she receives are, from Ben
+			\begin{lstlisting}[language=Python]
+date = Tuesday
+vclock = Alice:1, Ben:1, Dave:1
+			\end{lstlisting}
+			From Cathy and Dave
+			\begin{lstlisting}[language=Python]
+date = Thursday
+vclock = Alice:1, Ben:1, Cathy:1, Dave:2
+			\end{lstlisting}
+		\end{column}	
+	\end{columns} 
+	\note{
+		Вторник и четверг
+	}
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector7}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			All Alice has to do is show Ben the vector clock from Cathy’s message, and Ben will know that he has been overruled.
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\cprotEnv\begin{gdblank}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=\textwidth]{vector8}			
+		\end{column}
+		\begin{column}{0.5\textwidth}				
+			Done. Everybody's in sync
+		\end{column}	
+	\end{columns} 
+	\end{gdblank}
+	\begin{gdblank}		
+		\centering
+		\includegraphics[height=0.9\textheight]{mafia}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{So, What!?}
+		\centering
+		\LARGE 
+		So... What Did We Get Out Of All of This?
+		\note{
+			Мы посмотрели несколько вариантов решения проблемы определения порядка событий в распределённой системе
+		}
+	\end{gdblank}	
+	% \begin{gdblank}
+	% 	\frametitle{The WHY of things}
+	% 	\begin{itemize}
+	% 		\item The concept of causality between events is fundamental to the design and analysis of parallel and distributed computing and operating systems
+	% 		\item Usually causality is tracked using physical time
+	% 		      \pause 
+	% 		      \item\bf\LARGE In distributed systems, it is not possible to have a global physical time
+	% 	\end{itemize}		
+	% \end{gdblank}
+
+	\begin{gdblank}
+		\frametitle{Review}
+		\begin{itemize}
+			\large
+			\item Physical Clocks - hard to keep synchronized
+			\item Logical clocks - can provide some notion of relative events occurrence
+			\item Lamport's logical time
+			      \begin{itemize}
+			      	\item happened before defines causal relation
+			      	\item this clocks don't capture causality
+			      	\item total ordering relation
+			      \end{itemize}
+			\item Vector Clocks
+			      \begin{itemize}
+			      	\item captures causality
+			      	\item have a component for each process in the system
+			      	\item slow and grow
+			      \end{itemize}
+		\end{itemize}
+		\note{			
+			И все эти решения вы сможете найти под капотом современных распределенных систем\\
+			Некоторые используют настенные часы, а другие доверяют только логическим\\
+			Дело в том
+		}
+	\end{gdblank} 
+	\begin{gdblank}
+		\LARGE\centering
+		\includegraphics[height=0.7\textheight]{errors}
+		\par
+		Think ahead! Think advance!
+		\note{
+			\begin{itemize}
+				\item Нет плохих решений, нет хороших. Есть решения подходящие и не подходящие
+				\item Если вы строите распределенные системы вы тоже столкнетесь с проблемами синхронизации
+				\item Даже если это сайт за лоад балансером
+				\item И если вы не уделите ей внимание, то придется потом лепить костили и в худшем случае
+			\end{itemize}				
+			И вот здесь вот я хотел бы взять паузу\\
+			Паузу, ведь мы проделали довольно большой путь, много чего разобрали\\
+			Однако, там осталось еще очень много чего интересного. На еще одну презентацию, к примеру
+		}
+	\end{gdblank}
+	\begin{gdblank}
+		\frametitle{So many things to tell you}
+		\large
+		\begin{itemize}
+			\item GPS Clocks
+			\item Atomic Clocks in Google Spanner Database
+			\item UTC, TAI, TCG and TCB coordinate time standards
+			\pause
+			\item Why do clocks run clockwise?
+			\item Why there was no 30 December 2011 in Samoa?
+		\end{itemize}
+		\note{
+			А так же остались не затронутыми такие увлекательные вопросы как\\
+			Ну а текущая моя презентация подходит к концу
+		}
+	\end{gdblank} 
+	% \begin{gdblank}
+	% 	\frametitle{Thank you! That was Algebraic! Questions?}
+	% 	\begin{columns}			
+	% 		\begin{column}{0.5\textwidth}
+	% 			\begin{center}
+	% 			\begin{minipage}{.7\textwidth}		
+	% 			\LARGE
+	% 			\begin{itemize}
+	% 				\item Thank
+	% 				\item You 
+	% 				\item For
+	% 				\item Your
+	% 				\item Time
+	% 			\end{itemize}
+	% 			% Hope your software will never run on a space ship that is orbiting a black hole				
+	% 		\end{minipage}
+	% 	\end{center}
+	% 		\end{column}
+	% 		\begin{column}{0.5\textwidth}				
+	% 			\includegraphics[width=0.9\textwidth]{thankyou-at}			
+	% 		\end{column}	
+	% 	\end{columns} 		
+	% \end{gdblank} 	
+	\begin{gdthankyou}	
+	\end{gdthankyou}
+\end{document}
+% IT's hard but we could deal with it
+% Java code
+% https://lkml.org/lkml/2012/7/1/203
+
+% https://literature.rockwellautomation.com/idc/groups/literature/documents/wp/enet-wp030_-en-e.pdf
+% gps clocks
+
+% There is no one simple definition of time. Time is something we deal with every day, and something that everyone thinks they understand.
+% most people take for granted every day.
 % What is the time?
 % Time is a way to order a set of events? % Half life 3
 % Einstein Space-Time
@@ -48,9 +1101,19 @@
 % Cassandra
 
 
+% The concept of causality between events is fundamental to the design and
+% analysis of parallel and distributed computing and operating systems.
+% Usually causality is tracked using physical time.
+% In distributed systems, it is not possible to have a global physical time.
+% As asynchronous distributed computations make progress in spurts, the
+% logical time is sufficient to capture the fundamental monotonicity property
+% associated with causality in distributed systems
+
 % http://books.cs.luc.edu/distributedsystems/clocks.html#time-and-computation
 % https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6900441
 % https://bbossola.wordpress.com/2013/09/04/jvm-issue-concurrency-is-affected-by-changing-the-date-of-the-system/
 % http://yourcalendricalfallacyis.com/
 % https://news.ycombinator.com/item?id=4128208
 % https://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time#_=_
+
+% TCP KEEP ALIVE

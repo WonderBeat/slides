@@ -1,0 +1,164 @@
+
+\RequirePackage{environ}
+\RequirePackage{xcolor}
+\RequirePackage{FiraSans}
+
+\definecolor{olive}{rgb}{0.3, 0.4, .1}
+\definecolor{fore}{RGB}{249,242,215}
+\definecolor{back}{RGB}{51,51,51}
+\definecolor{title}{RGB}{255,0,90}
+\definecolor{dgreen}{rgb}{0.,0.6,0.}
+\definecolor{gold}{rgb}{1.,0.84,0.}
+\definecolor{JungleGreen}{cmyk}{0.99,0,0.52,0}
+\definecolor{BlueGreen}{cmyk}{0.85,0,0.33,0}
+\definecolor{RawSienna}{cmyk}{0,0.72,1,0.45}
+\definecolor{Magenta}{cmyk}{0,1,0,0}
+\definecolor{princetonorange}{rgb}{1.0, 0.64, 0.43}
+
+
+\setbeamercolor{white text}{fg=white,bg=white}
+\setbeamercolor{normal text}{fg=black, bg=black}
+\setbeamercolor{block title}{use=structure,fg=white,bg=purple!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=white!20!white}
+
+\setbeamerfont{title}{series=\bfseries\fontsize{18pt}{20pt}\fontspec{Source Sans Pro}}
+\setbeamerfont{frametitle}{series=\bfseries\fontspec{Source Sans Pro}}
+
+
+\mode<presentation>
+
+\NewEnviron{titlePage}[1][]{
+      {     
+    \usebackgroundtemplate{
+        \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-front}\hfil}\vfil}
+    }  
+  \begin{frame}[noframenumbering,plain]
+  \BODY
+  \end{frame}
+      }
+}
+
+\NewEnviron{gdblank}[1][]{
+      {     
+    % \usebeamercolor{normal text}
+    \usebackgroundtemplate{
+        \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-blank}\hfil}\vfil}
+    }  
+  \begin{frame}
+  \frametitle{\vfill}
+  \BODY
+  \end{frame}
+      }
+}
+
+\NewEnviron{gdthankyou}[1][]{
+      {     
+    \usebeamercolor{normal text}
+    \usebackgroundtemplate{
+        \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{thankyou}\hfil}\vfil}
+    }  
+  \begin{frame}{#1}
+  \BODY
+  \end{frame}
+      }
+}
+
+\NewEnviron{gdsw}[1][]{
+      {     
+    \usebeamercolor{normal text}
+    \usebackgroundtemplate{
+        \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-sw}\hfil}\vfil}
+    }  
+  \begin{frame}{#1}
+  \BODY
+  \end{frame}
+      }
+}
+
+\NewEnviron{gdblankclock}[1][]{
+      {     
+    \usebeamercolor{normal text}
+    \usebackgroundtemplate{
+        % \vbox to \paperheight{\includegraphics{clockface}}
+        \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-blank}\hfil}\vfil}        
+    }  
+  \begin{frame}[fragile]{#1}
+  \BODY
+  \end{frame}
+      }
+}
+
+\NewEnviron{gddark}[1][]{
+      {     
+    \usebackgroundtemplate{
+        \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{gd-dark}\hfil}\vfil}
+    }  
+  \begin{frame}{#1}
+    \usebeamercolor{white text}
+  \BODY
+  \end{frame}
+      }
+}
+
+\setbeamertemplate{headline}{}
+\headheight=0pt
+\addtolength{\textheight}{-40pt}
+
+\setbeamertemplate{frametitle}{
+  \usebeamercolor{normal text}
+  \begin{beamercolorbox}[ht=0.3cm]{frametitle}
+		\insertframetitle
+	\end{beamercolorbox}
+}
+
+\let\OLDitemize\itemize
+\renewcommand\itemize{\OLDitemize\addtolength{\itemsep}{7pt}}
+\setbeamertemplate{itemize items}[circle]
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+\setbeamercolor{itemize subsubitem}{fg=black}
+
+\setbeamertemplate{itemize subitem}[square]
+\setbeamertemplate{itemize subsubitem}[ball]
+\setbeamercolor{frametitle}{fg=black}
+
+\lstset{
+% numbers = left,
+basicstyle=\small\ttfamily,
+framexleftmargin=1mm,
+framextopmargin=50pt,
+frame=bottomline,
+backgroundcolor=\color{princetonorange},
+breaklines=true,
+% keywordstyle=\bf\color{blue},
+% identifierstyle=\bf,
+numberstyle=\color[RGB]{0,192,192},
+commentstyle=\it\color[RGB]{0,96,96},
+% stringstyle=\rmfamily\slshape\color[RGB]{128,0,0}, % <---- you had a `1' instead of an `l' in \slshape
+% <--- do not leave blank lines in the argument of \lstset
+% showstringspaces=true
+}
+
+
+\defbeamertemplate*{title page}{gd}[1][]
+{ 
+   \vskip0.5cm%      
+    \begin{beamercolorbox}[wd=24cm,leftskip=12cm,#1]{author}
+      \small\insertauthor%
+    \end{beamercolorbox}
+    \vskip1.2cm%      
+   \usebeamercolor{white text}   
+    \hskip1.5cm
+    \begin{beamercolorbox}[wd=10cm,sep=1pt,right,#1]{title page header}
+      % \begin{flushright}
+      \usebeamerfont{title}\inserttitle\par%
+    % \end{flushright}
+    \end{beamercolorbox}%    
+    \vskip0.95cm%
+    %  \vskip0.2cm%
+    % \begin{beamercolorbox}[wd=12cm,leftskip=3cm,#1]{date}
+    %   \usebeamerfont{author}\insertdate%
+    % \end{beamercolorbox}
+  \vfill
+}
+\mode<all>
