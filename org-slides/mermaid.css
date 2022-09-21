@@ -1,0 +1,9 @@
+#container > svg {
+    max-width: 100% !important;
+}
+svg {
+    max-width: 100% !important;
+}
+.mermaid {
+    width: 100%;
+}

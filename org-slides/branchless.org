@@ -1,0 +1,445 @@
+#+Title: Git 💔 😡
+#+Author: Denis Golovachev
+
+#+KEYWORDS: data, lake, lambda
+#+DESCRIPTION: Data lake architecture RFC
+
+#+OPTIONS: reveal_rolling_links:t reveal_keyboard:t reveal_overview:t num:nil
+#+OPTIONS: reveal_width:1400 reveal_height:1000
+#+OPTIONS: toc:1
+#+OPTIONS: reveal_klipsify_src:t
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_MIN_SCALE: 0.1
+#+REVEAL_MAX_SCALE: 1.0
+#+REVEAL_PLUGINS: (notes search zoom highlight)
+#+REVEAL_MARGIN: 0.1
+#+REVEAL_TRANS: cube
+#+REVEAL_THEME: sky
+#+REVEAL_HLEVEL: 5
+#+REVEAL_POSTAMBLE: Branchless
+#+REVEAL_INIT_OPTIONS: width:1200, height:800, margin: 0.1, minScale:0.5, maxScale:2.5, transition:'cube'
+#+REVEAL_EXTRA_CSS: ./local.css
+#+OPTIONS: toc:nil
+
+
+* It supposed to be about GIT
+#+BEGIN_NOTES
+It supposed to be a talk about GIT and how to use it without branches
+But today I want to talk about not only about git but software in general. Software that we engineers here use everyday and
+#+END_NOTES
+* Softwaaaaare
+:PROPERTIES:
+    :reveal_background: ./img/cowboy.jpg
+    :reveal_background_trans: slide
+:END:
+#+BEGIN_NOTES
+It supposed to be a talk about GIT and how to use it without branches
+But today I want to talk about not only about git but software in general. Software that we engineers here use everyday and
+#+END_NOTES
+* The plan
+
+#+ATTR_REVEAL: :frag (appear) :class le
+[[./img/gladiators.jpg]]
+
+#+ATTR_REVEAL: :frag (appear)
+[[./img/vs.jpg]]
+* The plan
+[[./img/vstotal.jpg]]
+#+BEGIN_NOTES
+I'll try to convince you that we have terrible tools
+You'll try to convince me otherwise
+We'll bring some chaos to this world
+#+END_NOTES
+* .
+:PROPERTIES:
+    :reveal_background: ./img/ux.jpg
+    :reveal_background_trans: slide
+    :reveal_extra_attr: class=hide
+:END:
+* Linux
+[[./img/linux.jpg]]
+** dd
+:PROPERTIES:
+    :reveal_extra_attr: class=largef
+:END:
+#+begin_src bash
+dd if=/dev/zero of=/dev/sda bs=4096 count=4096
+#+end_src
+#+BEGIN_NOTES
+This is terrible command
+Does it care about damage it can bring to you life? No it doesn't give a shift
+Let me explain, this example literally says: open
+Will it asks for comfirmation? No. But even rm do!
+#+END_NOTES
+** .
+:PROPERTIES:
+    :reveal_background: ./img/this-is-fine.jpg
+    :reveal_extra_attr: class=hide
+:END:
+#+BEGIN_NOTES
+I beg you, don't copy paste this command from browser. You may accidentally copy it with a trailing newline symbol. I did it twice in my life.
+And boom, next week you spend with data recovery manuals
+Next is something more popular
+So, this is may be the only one valuable thing in this talk, so I repeat
+#+END_NOTES
+** Never copy this
+** Fucking DD command examples
+** From you browser to your command line
+** tar
+[[./img/tar.png]]
+#+begin_src bash
+tar -c -f destination.tar file1.txt file2.txt file3.txt
+#+end_src
+#+BEGIN_NOTES
+Do you use tar? I use it every week. Archiving, compression. And honestly, I can't type correct tar command from the first try. Can you? I can't. I thought it is because I'm dumb. But then I found that I'm not alone. And then I found out that most of us can't do this.
+Does tar have terrible UX, probably yes. That's why we have XKCD about it
+#+END_NOTES
+** cd, cat
+#+begin_src bash
+
+cd  /photos/billy-herrington
+
+cat /etc/.shadow
+
+ls  /proc
+
+#+end_src
+#+BEGIN_NOTES
+These are good citizens but in general people in software tend to forget that KISS is a good principle
+#+END_NOTES
+** KISS
+[[./img/kiss.png]]
+KISS, an acronym for keep it simple stupid, is a design principle noted by the U.S. Navy in 1960.
+#+BEGIN_NOTES
+They tend to forget how to build small simple things and combine them into more complex
+And today we have so many brilliant projects that can't build a community because they are not friendly, they are difficult for beginners. Sometimes
+This principle may help you for example to build a community around your product. Talking about community I want to mention an interesting project that is brilliant but still suffering from the bad UX
+#+END_NOTES
+* NIX
+:PROPERTIES:
+    :reveal_background: ./img/nix-background.jpg
+    :reveal_extra_attr: class=hide
+:END:
+[[./img/nix.png]]
+** Nix
+[[./img/nix.png]]
+
+OS, Language, Package Manager
+** Quiz
+:PROPERTIES:
+    :reveal_extra_attr: class=largef
+:END:
+[[./img/gopher.gif]]
+#+begin_src bash
+nix-env -qa git
+#+end_src
+** Quiz
+:PROPERTIES:
+    :reveal_extra_attr: class=largef
+:END:
+Install package
+#+begin_src bash
+nix-env -i hellow
+#+end_src
+** Quiz
+:PROPERTIES:
+    :reveal_extra_attr: class=largef
+:END:
+Uninstall package
+** Uninstall package
+:PROPERTIES:
+    :reveal_extra_attr: class=largef
+:END:
+[[./img/goat.webp]]
+#+begin_src bash
+nix-env -e hellow
+-e is short for, according to the man, --uninstall
+I am not making this up!!!
+#+end_src
+#+BEGIN_NOTES
+Guys from NIX were like:
+- We use b for clean
+- We use c to increase verbosity
+- We use d to launch a space shuttle
+So, if you work with NIX you feel constant pain. Eternal pain. Their language is way worse than example I presented
+#+END_NOTES
+
+* GIT
+** Senior and Junior
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How should I change to a different branch?
+** Senior and Junior
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How should I change to a different branch?
+#+begin_src bash
+git checkout
+#+end_src
+** Senior and Junior
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How should I change to a different branch?
+#+begin_src bash
+git checkout
+#+end_src
+And how should I create a branch?
+** Senior and Junior
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How should I change to a different branch?
+#+begin_src bash
+git checkout
+#+end_src
+And how should I create a branch?
+#+begin_src bash
+git checkout
+#+end_src
+** Senior and Junior
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How should I change to a different branch?
+#+begin_src bash
+git checkout
+#+end_src
+And how should I create a branch?
+#+begin_src bash
+git checkout
+#+end_src
+And how should I revert the contents of a single file in my working directory, without involving branches at all
+** Senior and Junior
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How should I change to a different branch?
+#+begin_src bash
+git checkout
+#+end_src
+And how should I create a branch?
+#+begin_src bash
+git checkout
+#+end_src
+And how should I revert the contents of a single file in my working directory, without involving branches at all
+#+begin_src bash
+git checkout
+#+end_src
+[[./img/revert.webp]]
+** You have 10 commands you use
+#+begin_src bash
+git commit -m “your useful commit message”
+git branch <branch_name>
+git checkout -b <your_new_branch_name>
+git whatchanged
+#+end_src
+** .
+:PROPERTIES:
+    :reveal_background: ./img/advtime.png
+    :reveal_background_trans: slide
+    :reveal_extra_attr: class=hide
+:END:
+#+BEGIN_NOTES
+What we usually do in adventures before the boss
+We press save
+#+END_NOTES
+** What we do: tar/copy
+[[./img/copy.jpg]]
+#+BEGIN_NOTES
+And I mostly shure you do the same thing
+#+END_NOTES
+** XKCD
+:PROPERTIES:
+    :reveal_extra_attr: class=xkcd
+:END:
+[[./img/xkcd.webp]]
+#+BEGIN_NOTES
+Don't be shy. We are not alone. We are not dumb. It's not us. It is the tool
+The Tool is terrible. And you know what? Git has a separate revert command
+#+END_NOTES
+** Revert one File
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How to revert one file?
+** Revert one File
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How to revert one file?
+#+begin_src bash
+git checkout
+git reset
+git revert
+#+end_src
+** What is this?
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+#+begin_src bash
+git revert
+
+Note: git revert is used to record some new commits
+to reverse the effect of some earlier commits (often only a faulty one)
+#+end_src
+[[./img/gopher.webp]]
+#+BEGIN_NOTES
+I've never touched this command and I never will
+#+END_NOTES
+** Git rerere
+git-rerere - Reuse recorded resolution of conflicted merges
+#+begin_src bash
+git rerere [clear|forget <pathspec>|diff|remaining|status|gc]
+#+end_src
+** Consistency
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+How can I view a list of all tags?
+#+begin_src bash
+git tag
+#+end_src
+How can I view a list of all remotes?
+#+begin_src bash
+git remote -v
+#+end_src
+How can I delete a remote?
+#+begin_src bash
+git remote rm
+#+end_src
+And how can I delete a branch?
+#+begin_src bash
+git branch -d
+#+end_src
+[[./img/consistency.gif]]
+#+BEGIN_NOTES
+Do you feel how inconsistent this set of command is
+#+END_NOTES
+
+* Languages
+#+BEGIN_NOTES
+But seems like language developers recently understood that something is wrong. Langauage developers are smart btw. And if you know at least one of these languages you will understand it quite easily
+#+END_NOTES
+[[./img/developers.jpg]]
+** Rust, ZIG, JAI
+[[./img/zig.png]]
+[[./img/rust.png]]
+#+BEGIN_NOTES
+But seems like language developers recently understood that something is wrong. Langauage developers are smart btw. And if you know at least one of these languages you will understand it quite easily
+#+END_NOTES
+** .
+:PROPERTIES:
+    :reveal_background: ./img/gcc-template-error.png
+    :reveal_background_trans: slide
+    :reveal_extra_attr: class=hide
+:END:
+** C++
+[[./img/gcc-error.webp]]
+#+BEGIN_NOTES
+It's famous by error messages that are completely gibberish. You need years of experience to get used to it
+#+END_NOTES
+** New langs are different
+[[./img/rust-error.webp]]
+#+BEGIN_NOTES
+Compiler teaches you
+Compiler wants you to be a better programmer
+Compiler doesn't throw errors on you, but play with you a game
+#+END_NOTES
+** Gamification
+[[./img/gamification.jpg]]
+#+BEGIN_NOTES
+These languages use different kind of technics to teach you, to explain you an error
+This modern languages may not have difficult concepts, ideas
+They also have gamification technics that can draw user attention and help him to learn the language, finish his project and have fun.
+it becomes more and more important in the era of tik tok
+And for some of these languages this is competitive advantage. This is one of the reason why they have large communities and Haskell has not.
+Btw legendary gamification example and also an example how to tell your client that we have some problems is this
+#+END_NOTES
+** Gamification
+[[./img/dino.webp]]
+#+BEGIN_NOTES
+We have a problem, don't get upset, here's a dino you can play with while we are fixing the issue
+This is epic
+#+END_NOTES
+* Git
+:PROPERTIES:
+    :reveal_background: ./img/gentlemen.jpg
+    :reveal_background_trans: slide
+    :reveal_extra_attr: class=hide
+:END:
+There are projects that make GIT better
+** gitless
+[[./img/gitless.png]]
+* What else
+** JJ
+Jujutsu is a Git-compatible DVCS. It combines features from Git (data model, speed), Mercurial (anonymous branching, simple CLI free from "the index", revsets, powerful history-rewriting), and Pijul/Darcs (first-class conflicts)
+[[./img/jj.png]]
+** A Git-compatible DVCS that is both simple and powerful
+  * Autorebasing
+  * No staging area
+  * Conflict resolution is a first class citizen
+#+BEGIN_NOTES
+   you can resolve conflicts collaboratively
+#+END_NOTES
+
+* Git Branchless
+** Weird git workflow
+2 years Ago this blogpost appeared
+#+begin_src bash
+https://drewdevault.com/2020/04/06/My-weird-branchless-git-workflow.html
+#+end_src
+** No branches
+ * No branches
+ * Community liked it
+** Git Branchless / Git Patch stack
+[[./img/right-way.png]]
+ * You are always on top of your master branch
+ * Patch stack
+ * Move/merge/update
+ * You can create PR from your patch
+ * Patch disapears when PR is merged
+** How it looks
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+[[./img/san-keys.png]]
+** How it feels
+:PROPERTIES:
+    :reveal_extra_attr: class=r-stretch
+:END:
+[[./img/reorder.png]]
+* This makes difference
+[[./img/blow.gif]]
+#+BEGIN_NOTES
+This workflow is pretty simple
+#+END_NOTES
+** Less frictions
+[[./img/lesshustle.jpg]]
+** Less Merges / Rebases when you work with multiple features
+[[./img/relax.jpg]]
+** Leads to smaller PRs
+[[./img/small-commits.png]]
+* Usability
+ * Nobody wants to suffer
+ * Make your colleagues feel better. Make them smile!
+ * It may not work, but it should at least tell you what's wrong
+#+BEGIN_NOTES
+Git is the only example of one tool that was poorly designed, but raised a generation of people that think that everything is OK. It's not normal.
+Here are some simple ideas I find useful in my day to day life.
+We are creators. We build scripts, reports, guides. And guys, please try to make them friendly. It is important.
+You have long running script - don't forget progress bar
+Report with long boring table - don't forget to add colors
+You coleleagues, your clients don't want to focus, they want to feel comfort.
+And we can make the future tools better. together.
+#+END_NOTES
+* Colombia, please take me there
+Please, Please, Please,
+Guys, for real I can help
+
+I can offer:
+  * Carry your luggage
+  * Make your beds
+  * Lapdance

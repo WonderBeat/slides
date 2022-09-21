@@ -1,3 +1,10 @@
+*.out
+*.log
+*.skim
+*.snm
+*.html
+*.pdf
+
 .DS_Store
 ## Core latex/pdflatex auxiliary files:
 *.aux

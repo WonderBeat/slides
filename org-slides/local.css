@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    align-items: center;
+}
+
+.hide{
+    /* display: none !important; */
+}
+
+.largef{
+    font-size: 70px;
+}
+.xkcd > div > p > img {
+    width: 60%;
+}
+img[alt~="gopher.webp"] {
+    width: 70%;
+}
+
+.col{
+    flex: 1;
+}
+p > img svg {
+ max-width: none !important;
+}

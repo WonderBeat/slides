@@ -1,0 +1,370 @@
+#+Title: Data Lake Steaming Layer Design
+#+Author: Denis Golovachev
+
+#+KEYWORDS: data, lake, lambda
+#+DESCRIPTION: Data lake architecture RFC
+
+#+OPTIONS: reveal_center:t reveal_progress:t reveal_history:nil reveal_control:t
+#+OPTIONS: reveal_rolling_links:t reveal_keyboard:t reveal_overview:t num:nil
+#+OPTIONS: reveal_width:1400 reveal_height:1000
+#+OPTIONS: toc:1
+#+OPTIONS: reveal_klipsify_src:t
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_MIN_SCALE: 1.0
+#+REVEAL_MAX_SCALE: 1.0
+#+REVEAL_PLUGINS: (notes search zoom)
+#+REVEAL_MARGIN: 0.1
+#+REVEAL_TRANS: cube
+#+REVEAL_THEME: beige
+#+REVEAL_HLEVEL: 2
+#+REVEAL_POSTAMBLE: Data Lake
+#+REVEAL_INIT_OPTIONS: width:1200, height:800, margin: 0.1, minScale:0.2, maxScale:2.5, transition:'cube'
+#+REVEAL_EXTRA_CSS: ./local.css
+#+OPTIONS: toc:nil
+
+* Data Lake extensions for In-Stream Analytics
+[[./img/data-layer.webp]]
+#+BEGIN_NOTES
+Today we are going to discuss
+ * How can we integrate data lake with our streaming data processed
+ * Will take a look at benefits and drawbacks of industry adopted designs
+ * And personally I'm looking for feedback and your opinions where this things may work and may not
+   So don't hesitate to ask questions. This talk is basically to draw a baseline for our discussion
+#+END_NOTES
+* Data Processing Architectures History
+    * Lambda
+    * Kappa
+    * Kappa +
+    * ...
+#+BEGIN_NOTES
+Let's do a small historical dive to recap common architectures, define common patterns and then on top of them build something for <Company Name Here>
+#+END_NOTES
+* Data Flow
+[[./img/common-data-processing.jpg]]
+#+BEGIN_NOTES
+Here is a Data Flow that is similar for all Data Centric companies. We collect data from outside world and sometimes inside our company, we process it. And as a result we extract data that we can get paid for, right? We extract Business value out of it
+And everything is good while we're startups, but when grow we face problems like
+#+begin_src mermaid :file ./img/lambda.png :theme forest :background-color transparent :css-file ./mermaid.css
+flowchart LR
+   subgraph Data Flow
+   O["Outside"] --> C{"Collecting"}
+   I["Inside"] --> C
+   C --> P("Processing")
+   P --> P
+   P --> Pr["Presenting"]
+   end
+#+end_src
+#+END_NOTES
+* Difficulties
+    * Unification
+      * Tools (in house solutions)
+      * Processes
+    * Scalability
+    * Data Segregation
+    * Audit (GDPR)
+    * Pace slowdown
+#+BEGIN_NOTES
+A number of software design architectures were proposed to address these issues
+#+END_NOTES
+* Lambda
+#+REVEAL_HTML: <div class="container"><div class="col">
+[[file:./img/book.png]]
+#+REVEAL_HTML: </div>
+#+REVEAL_HTML: <div class="col">
+[[./img/lambda-clean.png]]
+#+REVEAL_HTML: </div></div>
+#+BEGIN_NOTES
+Sequence of records is captured and fed into a batch system and a stream processing system in parallel. You implement your transformation logic twice, once in the batch system and once in the stream processing system. You stitch together the results from both systems at query time to produce a complete answer.
+That's what I had in all but one projects before Santiment
+ it is not my favorite approach, although
+ And most importantly
+#+END_NOTES
+*** Benefits
+#+begin_src mermaid :file ./img/lambda.png :theme forest :background-color transparent :css-file ./mermaid.css
+flowchart LR
+   K{"Kafka"} --> S("Streaming")
+   K --> B("Batch")
+   B --> D{"Data Mart"}
+   S --> D
+#+end_src
+  * Reprocessing explained
+  * QA/Scaling/Release Management procedures
+  * Battle proved architecture
+#+BEGIN_NOTES
+It was a first wide adopted Architecture where reprocessing was explained.
+Code will always change.if you have code that derives output data from an input stream, whenever the code changes, you will need to recompute your output to see the effect of the change.
+Data Mart - subject oriented database focused on particular line of business
+Data Mart is a Data Warehouse slice
+#+END_NOTES
+*** Bad Parts
+[[./img/beam.png]]
+  * Two implementations required for each job
+  * Complex layers of abstraction
+  * [[https://www.oreilly.com/radar/questioning-the-lambda-architecture/?utm_source=pocket_mylist][Questioning Lambda Architecture]]
+#+BEGIN_NOTES
+The problem of abstracting over totally divergent programming paradigms built on top of barely stable distributed systems is much harder
+Apache Beam appeared, but still it's very difficult to create and maintain jobs that can be ran in two modes
+#+END_NOTES
+* Kappa
+Ref: [[https://blog.twitter.com/engineering/en_us/topics/infrastructure/2021/processing-billions-of-events-in-real-time-at-twitter-?utm_source=pocket_mylist][Processing billions of events in real time at Twitter]]
+[[./img/lambda-kappa.png]]
+#+BEGIN_NOTES
+Early adopter was Twitter
+Here we totally rely on streaming layer for historical and streaming workload. No extra jobs, no pain, right?
+yes, but actually this architecture requires processes and tools to be updated and support Kappa. If you can afford such changes you may benefit from
+#+END_NOTES
+#+REVEAL: split
+#+begin_src mermaid :file ./img/kappa.png :theme forest :background-color transparent :css-file ./mermaid.css
+flowchart LR
+   K{"Kafka"} --> S("~Streaming~")
+   K --> B("Batch")
+   B --> D{"Data Mart"}
+   S --> D
+   style S fill:#f9f
+#+end_src
+*Benefits:*
+  * Streaming centric architecture
+  * Simple and elegant
+  * Adopted by dozen of top IT companies recently
+  * We already have it
+#+BEGIN_NOTES
+Flink Streaming was designed with Kappa architecture in mind
+We have Flink and if we want to introduce Data Lake, then likely it should be kind of Kappa, so let's take a closer look at our Flink pipelines to understand how we can improve them to be even more Kappa
+#+END_NOTES
+* Flink
+#+begin_src mermaid :file ./img/flink.png :theme forest :background-color transparent :css-file ./mermaid.css
+flowchart LR
+   K{"Kafka"} --> F("Flink")
+   F --> K2{"Intermediate<br>Kafka"}
+   subgraph Advanced Processing
+   K2 --> F2("Flink")
+   K2 --> F3("Flink")
+   end
+   F2 --> K3{"Kafka Clickhouse<br>Topic"}
+   F3 --> K3
+#+end_src
+#+RESULTS:
+[[file:./img/flink.png]]
+
+#+BEGIN_NOTES
+This is how our Flink processing pipelines look like in general
+Some blocks are optional
+Every step adds delay
+Lets's keep it Kappa but evolve a little bit with persistent layer
+#+END_NOTES
+*** Kafka & S3 = Cleansing + Compression
+#+begin_src mermaid :file ./img/flink-input.png :theme forest :background-color transparent :css-file ./mermaid.css
+flowchart LR
+   K{"Kafka"} --> F("Flink")
+   K --> S3["S3 (Long Term)"]
+   F --> K2{"Intermediate<br>Kafka"}
+   K2 --> F2("Flink")
+   K2 --> F3("Flink")
+   K2 --> S3
+   F2 --> K3{"Kafka Clickhouse<br>Topic"}
+   F3 --> K3
+   style S3 fill:#f9f
+#+end_src
+
+#+RESULTS:
+[[file:./img/flink-input.png]]
+
+*Benefits:*
+  * Cheaper storage
+  * Better compression
+  * Random access (easier)
+  * Data cleansing
+#+BEGIN_NOTES
+We may say that we already have persistence layer - Kafka. But Kafka is not perfect for the long time storage
+With this design we can adjust our recovery/restatement procedures like this
+Delta encoding
+!! Data cleansing
+#+END_NOTES
+*** Kafka & S3 = Cleansing + Compression
+#+begin_src mermaid :file ./img/flink-input-s3.png :theme forest :background-color transparent :css-file ./mermaid.css
+flowchart LR
+   K{"Kafka"}
+   F("Flink")
+   S3["S3 (Long Term)"]
+   K2{"Intermediate<br>Kafka"}
+   F2("Flink")
+   S3 --> F
+   S3 --> F2
+   F --> K3{"Kafka Clickhouse<br>Topic"}
+   F2 --> K3
+   style S3 fill:#f9f
+   style K fill:gray
+   style K2 fill:gray
+#+end_src
+
+#+RESULTS:
+[[file:./img/flink-input.png]]
+
+*Benefits:*
+  * Reduce Kafka Retention
+  * Backup and recovery
+  * Simplify QA procedures
+#+BEGIN_NOTES
+As a next step we could make flink to use S3 for historical data reprocessing. This reduces Kafka Retention a lot
+S3 is nice for the long term storage. We can share this data with other teams in case they need it. It's waaay easier to read from Kafka
+For Clickhouse topics
+Flink Hybrid connector
+>> Compares with reference
+#+END_NOTES
+*** Output Kafka topics
+#+begin_src mermaid :file flink-backup.png :theme forest :background-color transparent :css-file ./mermaid.css
+flowchart LR
+   K{"Kafka"} --> F("Flink")
+   F --> K2{"Intermediate<br>Kafka"}
+   K3 --> S3["S3"]
+   K2 --> F2("Flink")
+   K2 --> F3("Flink")
+   F2 --> K3{"Kafka Clickhouse<br>Topic"}
+   F3 --> K3
+   style S3 fill:#f9f
+#+end_src
+
+#+RESULTS:
+[[file:flink-backup.png]]
+
+*Benefits:*
+  * Backup and Recovery
+  * Quality control (immutable data)
+  * Historical source for Kafka Tables
+  * Reduce Kafka retention
+#+BEGIN_NOTES
+Specially for Clickhouse topics we can achieve backup/recovery and versioning
+We can verify data quality there with tools like Jupiter. We can put a seal on it. Currently it's impossible.
+OK, but Data Lake and S3 in particular can't solve all our problems
+#+END_NOTES
+*** S3 approach is not perfect
+ * File storage introduces delay
+ * Is not Message Broker
+ * Data duplication
+ * Not for 'Soft Realtime'
+#+BEGIN_NOTES
+Can't be used as a foundation for soft realtime processing systems. This may be complementary to this systems to help with drawbacks they have
+Take a look at Elastic search pipeling
+#+END_NOTES
+*** Elastic Search
+#+begin_src mermaid :file elastic.png :theme forest :background-color transparent :css-file ./mermaid.css
+flowchart LR
+   C["Crawlers"] --> E{"Elastic Search"}
+   E --> SMTH{"..."}
+   C --> S3["S3 (Long Term)"]
+   E --> S3
+   style S3 fill:#f9f
+#+end_src
+
+#+RESULTS:
+[[file:elastic.png]]
+
+*Benefits:*
+  * Backup and Recovery
+  * Restatements
+  * Quality Assurance
+#+BEGIN_NOTES
+We can achieve Pretty much the same benefits
+Even for arbitrary data processing pipeline in <Your company name>
+#+END_NOTES
+*** Arbitrary Data Processing
+ *Data lake is foundation of*
+   * Backup
+   * Long Term Storage (Archiving)
+   * Collaboration Place
+   * Data Mining Playground
+#+BEGIN_NOTES
+To summarize
+Lot of modern companies are data driven.
+Data is a new oil. We should carefully collect it and take care of it. It's important not only for us, but also for our clients who may one day ask us how can we guarantee quality of our data
+#+END_NOTES
+
+*** .
+:PROPERTIES:
+    :reveal_background: ./img/silos.png
+    :reveal_background_trans: slide
+:END:
+#+BEGIN_NOTES
+When company grow it's easy to find yourself in a place where you have data pipelines reimplemented all over again for every team/departmant. You have billions databases, data formats, access control procedures and it's difficult to trace data lineage.
+
+Data lake claims to be a solution for this. A place where you can store and SHARE data with others. Simple, unified place. Data mart.
+
+This meetings we discuss how it may help us with our current troubles, and yes, data Lake can help us with troubles that we have in current pipelines, but the final goal is more global. strategic.
+
+Let's discuss what you think about it, and then I have one more thing to share
+#+END_NOTES
+
+* One more thing...
+...
+* One more thing...
+[[./img/calcite.svg]]
+#+REVEAL: split
+[[./img/calcite.svg]]
+Database engine without database
+ * Abstraction layer
+   * Dialect translation
+   * Umbrella for your data warehouses
+   * Custom language extensions
+ * Isolation
+ * Security (Audit, Access Control)
+ * Dynamic analysis
+ * Custom optimizations
+* Who use it
+[[./img/who-use.png]]
+* POC
+#+ATTR_REVEAL: :code_attribs data-line-numbers
+#+begin_src bash
+IMAGE='etherbi-flink:2b90de5c1d2fc6addf26a96d869d5a88eaef92ed'
+kubectl run calcite-tst --rm -i --image "$IMAGE" \
+    "SELECT distinct(YEAR(dt)) FROM CT.erc20_stacks where 1=1 limit 5"
+#+end_src
+#+BEGIN_NOTES
+I made a POC. And today you can try it. To test it
+#+END_NOTES
+* Output
+#+ATTR_REVEAL: :code_attribs data-line-numbers
+#+begin_src bash
+Original query:
+
+SELECT distinct(YEAR(dt)) FROM CT.erc20_stacks where 1=1 limit 5
+
+Clickhouse dialect:
+
+SELECT DISTINCT YEAR(`DT`)
+FROM `CT`.`ERC20_STACKS`
+WHERE 1 = 1
+LIMIT 5
+#+end_src
+#+BEGIN_NOTES
+In addition to query translation you can attach
+ * Query cleansing
+ * Audit
+ * ..
+#+END_NOTES
+* Output
+#+ATTR_REVEAL: :code_attribs data-line-numbers
+#+begin_src bash
+Query Execution Plan
+
+LogicalSort(fetch=[5]): rowcount = 1.4999997909250677, cumulative cost = {132.99999958185015 rows, 239.9999966548011 cpu, 0.0 io}, id = 10
+  LogicalAggregate(group=[{0}]): rowcount = 1.4999997909250677, cumulative cost = {131.49999979092507 rows, 216.0 cpu, 0.0 io}, id = 9
+    LogicalProject(EXPR$0=[EXTRACT(FLAG(YEAR), $1)]): rowcount = 15.0, cumulative cost = {130.0 rows, 216.0 cpu, 0.0 io}, id = 8
+      LogicalFilter(condition=[=(1, 1)]): rowcount = 15.0, cumulative cost = {115.0 rows, 201.0 cpu, 0.0 io}, id = 7
+        JdbcTableScan(table=[erc20_stacks]): rowcount = 100.0, cumulative cost = {100.0 rows, 101.0 cpu, 0.0 io}, id = 6
+#+end_src
+
+* Output
+#+ATTR_REVEAL: :code_attribs data-line-numbers
+#+begin_src bash
+Original query:
+
+SELECT distinct(YEAR(dt)) FROM CT.erc20_stacks where 1=1 limit 5
+
+Optimized Plan
+
+JdbcToEnumerableConverter: rowcount = 5.0, cumulative cost = {195.0 rows, 253.5 cpu, 0.0 io}, id = 44
+  JdbcSort(fetch=[5]): rowcount = 5.0, cumulative cost = {194.5 rows, 253.0 cpu, 0.0 io}, id = 43
+    JdbcAggregate(group=[{0}]): rowcount = 10.0, cumulative cost = {190.0 rows, 181.0 cpu, 0.0 io}, id = 42
+      JdbcProject(EXPR$0=[EXTRACT(FLAG(YEAR), $1)]): rowcount = 100.0, cumulative cost = {180.0 rows, 181.0 cpu, 0.0 io}, id = 41
+        JdbcTableScan(table=[CT, erc20_stacks]): rowcount = 100.0, cumulative cost = {100.0 rows, 101.0 cpu, 0.0 io}, id = 6
+#+end_src

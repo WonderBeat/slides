@@ -1,0 +1,136 @@
+% !TeX program = LuaLaTeX
+% !TeX encoding = UTF-8
+\documentclass[aspectratio=169, 15pt,usenames,dvipsnames]{beamer}
+% Source sans
+
+\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+% \usepackage{sansmathfonts}
+\usepackage{xcolor}
+\usepackage{fontenc}
+\usepackage{unicode-math}
+\usepackage{listings}
+\usepackage{cprotect}
+\usepackage{pgfpages}
+
+\usepackage[makeroom]{cancel}
+
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+
+
+\usepackage[scaled=1.1]{sourcecodepro}
+\usepackage{sourcecodepro}
+\usepackage{graphicx}
+\usetheme{Madrid}
+\usecolortheme{beaver}
+% \usepackage{themes/gd/beamerthemegd}
+% \usepackage{themes/gd/beamerinnerthemegd}
+% \usepackage{themes/gd/beamerouterthemegd}
+% \usepackage{themes/gd/beamercolorthemegd}
+\let\OLDitemize\itemize
+\renewcommand\itemize{\OLDitemize\addtolength{\itemsep}{7pt}}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize subitem}{fg=black}
+\setbeamercolor{itemize subsubitem}{fg=black}
+
+\setbeamertemplate{itemize subitem}[square]
+\setbeamertemplate{itemize subsubitem}[ball]
+\setbeamercolor{frametitle}{fg=black}
+
+\lstset{
+% numbers = left,
+basicstyle=\small\ttfamily,
+framexleftmargin=1mm,
+framextopmargin=50pt,
+frame=bottomline,
+backgroundcolor=\color{princetonorange},
+breaklines=true,
+% keywordstyle=\bf\color{blue},
+% identifierstyle=\bf,
+numberstyle=\color[RGB]{0,192,192},
+commentstyle=\it\color[RGB]{0,96,96},
+% stringstyle=\rmfamily\slshape\color[RGB]{128,0,0}, % <---- you had a `1' instead of an `l' in \slshape
+% <--- do not leave blank lines in the argument of \lstset
+% showstringspaces=true
+}
+
+% \setbeameroption{hide notes} % Only slides
+% \setbeameroption{show only notes} % Only notes
+% \setbeameroption{show notes on second screen=right}
+\setbeamertemplate{note page}{\large\pagecolor{yellow!5}\vfill\insertnote\vfill}
+
+% To give a presentation with the Skim reader (http://skim-app.sourceforge.net) on OSX so
+% that you see the notes on your laptop and the slides on the projector, do the following:
+% 
+% 1. Generate just the presentation (hide notes) and save to slides.pdf
+% 2. Generate onlt the notes (show only nodes) and save to notes.pdf
+% 3. With Skim open both slides.pdf and notes.pdf
+% 4. Click on slides.pdf to bring it to front.
+% 5. In Skim, under "View -> Presentation Option -> Synhcronized Noted Document"
+%    select notes.pdf.
+% 6. Now as you move around in slides.pdf the notes.pdf file will follow you.
+% 7. Arrange windows so that notes.pdf is in full screen mode on your laptop
+%    and slides.pdf is in presentation mode on the projector.
+
+\graphicspath{
+    {themes/san/images/},
+    {images/}
+}
+
+\setlength{\parskip}{1em}
+\setbeamertemplate{footline}{%
+   \raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
+
+\title{Data Lake}
+
+\begin{document}
+
+\end{document}
+
+
+% GIT
+% Crying out
+% UX & UI
+% dd example
+% tar
+% GNU Make
+% ls, cat, KISS
+
+% nix-env -qa (query, all)
+% nix-env -i hello (Is -i short for --interactive? --ignore? No: it’s --install)
+% I want you to guess. nix-env -u, for uninstall? nix-env -r, for remove? nix-env -d, for delete?
+% No. None of this. It’s nix-env -e. The -e is short for, according to the manual, --uninstall. I am not making this up.
+% nix-collect-garbage -d
+
+% Fuck example
+
+% competitive advantage
+% C++ compilation example
+% Languages
+% Gamification
+
+% git we have our own special way to work with git. We have 10 commands we use
+% git less was designed to provide you some tools out of the box
+%every day and if you need something special from git.... adventure time!
+
+% What do you usually do? tar / copy/ stash / branch
+
+% Do you like rebases
+% Git rerere
+% *re*use *re*corded *re*solution
+% https://chuva-inc.com/blog/fast-tip-enable-git-rerere-right-now
+
+% https://github.com/martinvonz/jj
+% First class commits, autorebase, first class commits, no staging area, no branch names
+
+% 2 years ago or so
+% https://drewdevault.com/2020/04/06/My-weird-branchless-git-workflow.html
+% this was my inspiration
+
+% Git Branchless https://github.com/martinvonz/jj/blob/main/docs/related-work.md
+% bit-branchless, git-ps-rs
+
+% When you write sw, make it looks good
